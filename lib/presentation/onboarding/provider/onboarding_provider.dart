@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:movies/presentation/onboarding/model/intro_screen_model.dart';
+
+class IntroProvider extends ChangeNotifier {
+  int currentPageIndex = 0;
+  final PageController pageController = PageController();
+  bool get isFirstPage => currentPageIndex == 0;
+  bool get isLastPage =>
+      currentPageIndex == IntroDetails.introDetails.length - 1;
+
+  void onPageChanged(int index) {
+    currentPageIndex = index;
+    notifyListeners();
+  }
+
+  void nextPage() {
+    if (!isLastPage) {
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOutCubicEmphasized,
+      );
+    }
+  }
+
+  void previousPage() {
+    if (!isFirstPage) {
+      pageController.previousPage(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOutCubicEmphasized,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+}

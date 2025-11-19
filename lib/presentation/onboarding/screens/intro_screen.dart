@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/presentation/onboarding/model/intro_screen_model.dart';
+import 'package:movies/presentation/onboarding/provider/onboarding_provider.dart';
+import 'package:movies/presentation/widgets/app_elevated_button.dart';
+import 'package:provider/provider.dart';
+
+class IntroScreen extends StatelessWidget {
+  const IntroScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<IntroProvider>(
+      create: (context) => IntroProvider(),
+      child: Scaffold(
+        body: Consumer<IntroProvider>(
+          builder: (context, provider, child) {
+            return PageView.builder(
+              onPageChanged: (value) {
+                provider.onPageChanged(value);
+              },
+              controller: provider.pageController,
+              itemCount: IntroDetails.introDetails.length,
+              itemBuilder: (context, index) {
+                final IntroDetails currentIntro =
+                    IntroDetails.introDetails[index];
+                final bool isLast = provider.isLastPage;
+                final bool isFirst = provider.isFirstPage;
+                return Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                        currentIntro.imagePath,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            currentIntro.color.withValues(alpha: 0),
+                            currentIntro.color.withValues(alpha: 1),
+                          ],
+                          stops: [0, 1],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Spacer(),
+                        AnimatedContainer(
+                          padding: EdgeInsets.all(24),
+                          duration: Duration(seconds: 2),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColors.black,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                currentIntro.title,
+                                style: Theme.of(context).textTheme.titleMedium
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                              ),
+                              SizedBox(height: 16),
+                              if(!isLast)
+                              Text(
+                                currentIntro.subtitle,
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 16),
+                              AppElevatedButton(
+                                onPress: () {
+                                  provider.nextPage();
+                                },
+                                text: isLast ? "Finish" : "Next",
+                                textColor: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.secondary,
+                              ),
+                              SizedBox(height: 16),
+                              if (!isFirst)
+                                AppElevatedButton(
+                                  onPress: () {
+                                    provider.previousPage();
+                                  },
+                                  text: "Back",
+                                  textColor: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
+                                  backgroundColor: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
