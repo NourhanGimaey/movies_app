@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/utils/app_routes.dart';
 import 'package:movies/presentation/onboarding/model/intro_screen_model.dart';
 import 'package:movies/presentation/onboarding/provider/onboarding_provider.dart';
 import 'package:movies/presentation/widgets/app_elevated_button.dart';
@@ -48,78 +49,103 @@ class IntroScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Spacer(),
-                        FadeInUp(
-                          curve: Curves.easeInOut,
-                          child: Container(
-                            padding: EdgeInsets.all(24),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: AppColors.black,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                topRight: Radius.circular(40),
-                              ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: SafeArea(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              AppRoutes.loginScreen.routeName,
+                            );
+                          },
+                          child: Text(
+                            "Skip",
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FadeInUp(
+                        curve: Curves.easeInOut,
+                        child: Container(
+                          padding: EdgeInsets.all(24),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColors.black,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
                             ),
-                            child: Column(
-                              children: [
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                currentIntro.title,
+                                style: Theme.of(context).textTheme.titleMedium
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                              ),
+                              SizedBox(height: 16),
+                              if (!isLast)
                                 Text(
-                                  currentIntro.title,
-                                  style: Theme.of(context).textTheme.titleMedium
+                                  currentIntro.subtitle,
+                                  style: Theme.of(context).textTheme.bodyMedium
                                       ?.copyWith(
                                         color: Theme.of(
                                           context,
                                         ).colorScheme.primary,
                                       ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 16),
-                                if (!isLast)
-                                  Text(
-                                    currentIntro.subtitle,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
-                                        ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                SizedBox(height: 16),
+                              SizedBox(height: 16),
+                              AppElevatedButton(
+                                onPress: () {
+                                  isLast
+                                      ? Navigator.pushReplacementNamed(
+                                          context,
+                                          AppRoutes.loginScreen.routeName,
+                                        )
+                                      : provider.nextPage();
+                                },
+                                text: isLast ? "Finish" : "Next",
+                                textColor: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.secondary,
+                              ),
+                              SizedBox(height: 16),
+                              if (!isFirst)
                                 AppElevatedButton(
                                   onPress: () {
-                                    provider.nextPage();
+                                    provider.previousPage();
                                   },
-                                  text: isLast ? "Finish" : "Next",
+                                  text: "Back",
                                   textColor: Theme.of(
                                     context,
-                                  ).colorScheme.onSecondary,
+                                  ).colorScheme.secondary,
                                   backgroundColor: Theme.of(
                                     context,
-                                  ).colorScheme.secondary,
+                                  ).colorScheme.onPrimary,
                                 ),
-                                SizedBox(height: 16),
-                                if (!isFirst)
-                                  AppElevatedButton(
-                                    onPress: () {
-                                      provider.previousPage();
-                                    },
-                                    text: "Back",
-                                    textColor: Theme.of(
-                                      context,
-                                    ).colorScheme.secondary,
-                                    backgroundColor: Theme.of(
-                                      context,
-                                    ).colorScheme.onPrimary,
-                                  ),
-                              ],
-                            ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 );
