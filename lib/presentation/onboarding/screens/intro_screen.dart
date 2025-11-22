@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/presentation/onboarding/model/intro_screen_model.dart';
@@ -31,7 +32,7 @@ class IntroScreen extends StatelessWidget {
                     Positioned.fill(
                       child: Image.asset(
                         currentIntro.imagePath,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                     Container(
@@ -41,7 +42,7 @@ class IntroScreen extends StatelessWidget {
                             currentIntro.color.withValues(alpha: 0),
                             currentIntro.color.withValues(alpha: 1),
                           ],
-                          stops: [0, 1],
+                          stops: [0.15, 0.75],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
@@ -50,68 +51,72 @@ class IntroScreen extends StatelessWidget {
                     Column(
                       children: [
                         Spacer(),
-                        AnimatedContainer(
-                          padding: EdgeInsets.all(24),
-                          duration: Duration(seconds: 2),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppColors.black,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
+                        FadeInUp(
+                          curve: Curves.easeInOut,
+                          child: Container(
+                            padding: EdgeInsets.all(24),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppColors.black,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40),
+                              ),
                             ),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                currentIntro.title,
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.primary,
-                                    ),
-                              ),
-                              SizedBox(height: 16),
-                              if(!isLast)
-                              Text(
-                                currentIntro.subtitle,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.primary,
-                                    ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 16),
-                              AppElevatedButton(
-                                onPress: () {
-                                  provider.nextPage();
-                                },
-                                text: isLast ? "Finish" : "Next",
-                                textColor: Theme.of(
-                                  context,
-                                ).colorScheme.onSecondary,
-                                backgroundColor: Theme.of(
-                                  context,
-                                ).colorScheme.secondary,
-                              ),
-                              SizedBox(height: 16),
-                              if (!isFirst)
+                            child: Column(
+                              children: [
+                                Text(
+                                  currentIntro.title,
+                                  style: Theme.of(context).textTheme.titleMedium
+                                      ?.copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
+                                ),
+                                SizedBox(height: 16),
+                                if (!isLast)
+                                  Text(
+                                    currentIntro.subtitle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                        ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                SizedBox(height: 16),
                                 AppElevatedButton(
                                   onPress: () {
-                                    provider.previousPage();
+                                    provider.nextPage();
                                   },
-                                  text: "Back",
+                                  text: isLast ? "Finish" : "Next",
                                   textColor: Theme.of(
                                     context,
-                                  ).colorScheme.secondary,
+                                  ).colorScheme.onSecondary,
                                   backgroundColor: Theme.of(
                                     context,
-                                  ).colorScheme.onPrimary,
+                                  ).colorScheme.secondary,
                                 ),
-                            ],
+                                SizedBox(height: 16),
+                                if (!isFirst)
+                                  AppElevatedButton(
+                                    onPress: () {
+                                      provider.previousPage();
+                                    },
+                                    text: "Back",
+                                    textColor: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    backgroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
