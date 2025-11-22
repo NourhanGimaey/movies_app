@@ -18,11 +18,11 @@ class OnboardingScreen extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   AppColors.black.withValues(alpha: 0),
-                  AppColors.black.withValues(alpha: 50),
-                  AppColors.black.withValues(alpha: 91),
-                  AppColors.black.withValues(alpha: 100),
+                  AppColors.black.withValues(alpha: 0.5),
+                  AppColors.black.withValues(alpha: 0.91),
+                  AppColors.black.withValues(alpha: 1.0),
                 ],
-                stops: [0, 39, 68, 100],
+                stops: [0, 0.5, 0.75, 1],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -47,7 +47,7 @@ class OnboardingScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(
                         context,
-                      ).colorScheme.primary.withAlpha(60),
+                      ).colorScheme.primary.withAlpha(150),
                     ),
                   ),
                   SizedBox(height: 16),

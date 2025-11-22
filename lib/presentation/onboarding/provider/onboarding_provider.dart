@@ -16,8 +16,8 @@ class IntroProvider extends ChangeNotifier {
   void nextPage() {
     if (!isLastPage) {
       pageController.nextPage(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOutCubicEmphasized,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
       );
     }
   }
@@ -25,8 +25,8 @@ class IntroProvider extends ChangeNotifier {
   void previousPage() {
     if (!isFirstPage) {
       pageController.previousPage(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOutCubicEmphasized,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
       );
     }
   }

@@ -1,5 +1,7 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/utils/app_routes.dart';
 import 'package:movies/presentation/onboarding/model/intro_screen_model.dart';
 import 'package:movies/presentation/onboarding/provider/onboarding_provider.dart';
 import 'package:movies/presentation/widgets/app_elevated_button.dart';
@@ -31,7 +33,7 @@ class IntroScreen extends StatelessWidget {
                     Positioned.fill(
                       child: Image.asset(
                         currentIntro.imagePath,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                     Container(
@@ -41,18 +43,41 @@ class IntroScreen extends StatelessWidget {
                             currentIntro.color.withValues(alpha: 0),
                             currentIntro.color.withValues(alpha: 1),
                           ],
-                          stops: [0, 1],
+                          stops: [0.15, 0.75],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Spacer(),
-                        AnimatedContainer(
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: SafeArea(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              AppRoutes.loginScreen.routeName,
+                            );
+                          },
+                          child: Text(
+                            "Skip",
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FadeInUp(
+                        curve: Curves.easeInOut,
+                        child: Container(
                           padding: EdgeInsets.all(24),
-                          duration: Duration(seconds: 2),
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColors.black,
@@ -62,6 +87,7 @@ class IntroScreen extends StatelessWidget {
                             ),
                           ),
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 currentIntro.title,
@@ -73,21 +99,26 @@ class IntroScreen extends StatelessWidget {
                                     ),
                               ),
                               SizedBox(height: 16),
-                              if(!isLast)
-                              Text(
-                                currentIntro.subtitle,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.primary,
-                                    ),
-                                textAlign: TextAlign.center,
-                              ),
+                              if (!isLast)
+                                Text(
+                                  currentIntro.subtitle,
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
                               SizedBox(height: 16),
                               AppElevatedButton(
                                 onPress: () {
-                                  provider.nextPage();
+                                  isLast
+                                      ? Navigator.pushReplacementNamed(
+                                          context,
+                                          AppRoutes.loginScreen.routeName,
+                                        )
+                                      : provider.nextPage();
                                 },
                                 text: isLast ? "Finish" : "Next",
                                 textColor: Theme.of(
@@ -114,7 +145,7 @@ class IntroScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 );
