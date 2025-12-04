@@ -66,14 +66,19 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       AppElevatedButton(
-                        onPress: () {},
+                        onPress: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            AppRoutes.mainLayout.routeName,
+                          );
+                        },
                         text: "Login",
                         backgroundColor: Theme.of(
                           context,
                         ).colorScheme.secondary,
                         textColor: Theme.of(context).colorScheme.onPrimary,
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

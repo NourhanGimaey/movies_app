@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/theme/app_theme.dart';
 import 'package:movies/core/utils/app_routes.dart';
 
@@ -11,12 +12,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Movies',
-      theme: AppTheme.darkTheme,
-      initialRoute: AppRoutes.onboardingScreen.routeName,
-      routes: AppRoutes.routes,
+    return ScreenUtilInit(
+      designSize: const Size(430, 932),
+      minTextAdapt: true,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Movies',
+        theme: AppTheme.darkTheme,
+        initialRoute: AppRoutes.onboardingScreen.routeName,
+        routes: AppRoutes.routes,
+      ),
     );
   }
 }

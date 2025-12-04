@@ -94,7 +94,7 @@ class RegisterScreen extends StatelessWidget {
                         ).colorScheme.secondary,
                         textColor: Theme.of(context).colorScheme.onPrimary,
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

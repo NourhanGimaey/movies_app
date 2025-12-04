@@ -40,7 +40,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(AppImages.forgotPassword),
 
