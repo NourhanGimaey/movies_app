@@ -12,7 +12,4 @@ class AuthProvider extends ChangeNotifier {
     passwordController.dispose();
     super.dispose();
   }
-
-
-
 }

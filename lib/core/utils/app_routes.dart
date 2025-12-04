@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/presentation/auth/screens/forgot_password_screen.dart';
 import 'package:movies/presentation/auth/screens/login_screen.dart';
 import 'package:movies/presentation/auth/screens/register_screen.dart';
+import 'package:movies/presentation/main_layout/main_layout.dart';
 import 'package:movies/presentation/onboarding/screens/intro_screen.dart';
 import 'package:movies/presentation/onboarding/screens/onboarding_screen.dart';
 
@@ -10,7 +11,8 @@ enum AppRoutes {
   introScreen('/intro_screen'),
   loginScreen('/login_screen'),
   registerScreen('/register_screen'),
-  forgotPassword('/forgot_password_screen');
+  forgotPassword('/forgot_password_screen'),
+  mainLayout('/main_layout');
 
   final String routeName;
   const AppRoutes(this.routeName);
@@ -21,5 +23,6 @@ enum AppRoutes {
     AppRoutes.loginScreen.routeName: (context) => LoginScreen(),
     AppRoutes.registerScreen.routeName: (context) => RegisterScreen(),
     AppRoutes.forgotPassword.routeName: (context) => ForgotPasswordScreen(),
+    AppRoutes.mainLayout.routeName: (context) => MainLayout(),
   };
 }
