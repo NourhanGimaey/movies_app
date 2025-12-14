@@ -40,22 +40,29 @@ dependencies:
   animate_do: ^4.2.0
   flutter_svg: ^2.2.3
   flutter_screenutil: ^5.9.3
+  json_annotation: ^4.9.0
+  retrofit: ^4.9.1
+  logger: ^2.6.2
+  dio: ^5.9.0
+  dartz: ^0.10.1
+  injectable: ^2.7.1+2
+  get_it: ^9.2.0
+  connectivity_plus: ^7.0.0
+  equatable: ^2.0.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Update build_runner and all code generators to their latest versions
+  build_runner: ^2.4.9
+  json_serializable: ^6.8.0
+  retrofit_generator: ^8.1.0  # Or the latest stable version
+  injectable_generator: ^2.6.1 # Or the latest stable version
+  
+  flutter_lints: ^4.0.0 # Use a more recent lints version
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^5.0.0
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
+  # This is a safe list of currently stable, compatible versions as of late 2024.
+  # If running in the future, you should check pub.dev for the absolute latest versions.
 flutter:
 
   # The following line ensures that the Material Icons font is

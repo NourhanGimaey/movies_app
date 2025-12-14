@@ -1,39 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/core/utils/app_routes.dart';
-import 'package:movies/presentation/auth/provider/auth_provider.dart';
-import 'package:movies/presentation/auth/widgets/app_text_form_field.dart';
-import 'package:movies/presentation/widgets/app_elevated_button.dart';
-import 'package:provider/provider.dart';
+import 'package:movies/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:movies/features/auth/presentation/cubit/auth_state.dart';
+import 'package:movies/features/auth/presentation/widgets/app_text_form_field.dart';
+import 'package:movies/core/widgets/app_elevated_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   RegisterScreen({super.key});
+
+  void _onRegisterPressed(BuildContext context) {
+    if (_formKey.currentState?.validate() == true) {
+      final authCubit = context.watch<AuthCubit>();
+
+      authCubit.submitRegister();
+      Navigator.pushReplacementNamed(context, AppRoutes.mainLayout.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AuthProvider>(
-      create: (context) => AuthProvider(),
-      child: Consumer<AuthProvider>(
-        builder: (context, provider, child) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "Register",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
+    return BlocProvider<AuthCubit>(
+      create: (context) => AuthCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Register",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
             ),
-            body: Form(
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+        ),
+        body: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            final authCubit = context.watch<AuthCubit>();
+
+            return Form(
               key: _formKey,
               child: SafeArea(
                 child: Padding(
@@ -47,7 +60,7 @@ class RegisterScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.next,
                         customPrefixIcon: const Icon(Icons.person),
                         customLabel: "Name",
-                        controller: provider.nameController,
+                        controller: authCubit.nameController,
                       ),
                       const SizedBox(height: 24),
                       AppTextFormField(
@@ -56,7 +69,7 @@ class RegisterScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.next,
                         customPrefixIcon: const Icon(Icons.email),
                         customLabel: "Email",
-                        controller: provider.emailController,
+                        controller: authCubit.emailController,
                       ),
                       const SizedBox(height: 24),
                       AppTextFormField(
@@ -65,7 +78,7 @@ class RegisterScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.done,
                         customPrefixIcon: const Icon(Icons.lock_open_rounded),
                         customLabel: "Password",
-                        controller: provider.passwordController,
+                        controller: authCubit.passwordController,
                       ),
                       const SizedBox(height: 24),
                       AppTextFormField(
@@ -74,7 +87,7 @@ class RegisterScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.done,
                         customPrefixIcon: const Icon(Icons.lock_open_rounded),
                         customLabel: "Confirm Password",
-                        controller: provider.passwordController,
+                        controller: authCubit.confirmPasswordController,
                       ),
                       const SizedBox(height: 24),
                       AppTextFormField(
@@ -83,11 +96,11 @@ class RegisterScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.next,
                         customPrefixIcon: const Icon(Icons.phone_iphone),
                         customLabel: "Phone Number",
-                        controller: provider.phoneController,
+                        controller: authCubit.phoneController,
                       ),
                       const SizedBox(height: 24),
                       AppElevatedButton(
-                        onPress: () {},
+                        onPress: () => _onRegisterPressed(context),
                         text: "Create Account",
                         backgroundColor: Theme.of(
                           context,
@@ -128,9 +141,9 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/presentation/onboarding/model/intro_screen_model.dart';
+import 'package:movies/features/onboarding/model/intro_screen_model.dart';
 
 class IntroProvider extends ChangeNotifier {
   int currentPageIndex = 0;

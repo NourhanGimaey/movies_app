@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movies/presentation/auth/screens/forgot_password_screen.dart';
-import 'package:movies/presentation/auth/screens/login_screen.dart';
-import 'package:movies/presentation/auth/screens/register_screen.dart';
-import 'package:movies/presentation/main_layout/main_layout.dart';
-import 'package:movies/presentation/onboarding/screens/intro_screen.dart';
-import 'package:movies/presentation/onboarding/screens/onboarding_screen.dart';
+import 'package:movies/features/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:movies/features/auth/presentation/screens/login_screen.dart';
+import 'package:movies/features/auth/presentation/screens/register_screen.dart';
+import 'package:movies/features/main_layout/main_layout.dart';
+import 'package:movies/features/onboarding/screens/intro_screen.dart';
+import 'package:movies/features/onboarding/screens/onboarding_screen.dart';
+
 
 enum AppRoutes {
   onboardingScreen('/'),
