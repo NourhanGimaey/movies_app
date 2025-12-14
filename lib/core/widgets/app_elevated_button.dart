@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movies/core/theme/app_colors.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final void Function()? onPress;
   final String text;
   final Color backgroundColor;
   final Color textColor;
+  final Color borderSide;
 
   const AppElevatedButton({
     super.key,
@@ -12,6 +14,7 @@ class AppElevatedButton extends StatelessWidget {
     required this.text,
     required this.backgroundColor,
     required this.textColor,
+    this.borderSide = AppColors.transparent,
   });
 
   @override
@@ -21,10 +24,7 @@ class AppElevatedButton extends StatelessWidget {
       height: 56,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.secondary,
-            width: 2,
-          ),
+          side: BorderSide(color: borderSide, width: 2),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.circular(16),

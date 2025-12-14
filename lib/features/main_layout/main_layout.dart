@@ -36,7 +36,7 @@ class _MainLayoutState extends State<MainLayout> {
       extendBody: true,
       body: tabs[currentIndex],
       bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         height: 75.h,
         color: AppColors.transparent,
         child: ClipRRect(

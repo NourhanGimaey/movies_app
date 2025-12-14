@@ -22,7 +22,7 @@ class OnboardingScreen extends StatelessWidget {
                   AppColors.black.withValues(alpha: 0.91),
                   AppColors.black.withValues(alpha: 1.0),
                 ],
-                stops: [0, 0.5, 0.75, 1],
+                stops: const [0, 0.5, 0.75, 1],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -33,7 +33,7 @@ class OnboardingScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     "Find Your Next\nFavorite Movie Here",
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -41,7 +41,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     "Get access to a huge library of movies to suit all tastes. You will surely like it.",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -50,7 +50,7 @@ class OnboardingScreen extends StatelessWidget {
                       ).colorScheme.primary.withAlpha(150),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   AppElevatedButton(
                     onPress: () {
                       Navigator.pushReplacementNamed(
