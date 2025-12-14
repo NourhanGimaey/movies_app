@@ -43,7 +43,7 @@ class IntroScreen extends StatelessWidget {
                             currentIntro.color.withValues(alpha: 0),
                             currentIntro.color.withValues(alpha: 1),
                           ],
-                          stops: [0.15, 0.75],
+                          stops: const [0.15, 0.75],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
@@ -77,9 +77,9 @@ class IntroScreen extends StatelessWidget {
                       child: FadeInUp(
                         curve: Curves.easeInOut,
                         child: Container(
-                          padding: EdgeInsets.all(24),
+                          padding: const EdgeInsets.all(24),
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: AppColors.black,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40),
@@ -98,7 +98,7 @@ class IntroScreen extends StatelessWidget {
                                       ).colorScheme.primary,
                                     ),
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               if (!isLast)
                                 Text(
                                   currentIntro.subtitle,
@@ -110,7 +110,7 @@ class IntroScreen extends StatelessWidget {
                                       ),
                                   textAlign: TextAlign.center,
                                 ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               AppElevatedButton(
                                 onPress: () {
                                   isLast
@@ -128,7 +128,7 @@ class IntroScreen extends StatelessWidget {
                                   context,
                                 ).colorScheme.secondary,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               if (!isFirst)
                                 AppElevatedButton(
                                   onPress: () {
@@ -141,6 +141,9 @@ class IntroScreen extends StatelessWidget {
                                   backgroundColor: Theme.of(
                                     context,
                                   ).colorScheme.onPrimary,
+                                  borderSide: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary,
                                 ),
                             ],
                           ),
