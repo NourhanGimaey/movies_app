@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/app_assets.dart';
 import 'package:movies/core/utils/app_routes.dart';
-import 'package:movies/presentation/widgets/app_elevated_button.dart';
+import 'package:movies/core/widgets/app_elevated_button.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

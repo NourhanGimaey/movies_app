@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/core/utils/app_assets.dart';
 import 'package:movies/core/utils/app_routes.dart';
-import 'package:movies/presentation/auth/provider/auth_provider.dart';
-import 'package:movies/presentation/auth/widgets/app_text_form_field.dart';
-import 'package:movies/presentation/widgets/app_elevated_button.dart';
-import 'package:provider/provider.dart';
+import 'package:movies/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:movies/features/auth/presentation/cubit/auth_state.dart';
+import 'package:movies/features/auth/presentation/widgets/app_text_form_field.dart';
+import 'package:movies/core/widgets/app_elevated_button.dart';
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   LoginScreen({super.key});
+
+  void _onLoginPressed(BuildContext context) {
+    if (_formKey.currentState?.validate() == true) {
+      final authCubit = context.read<AuthCubit>();
+
+      authCubit.submitLogin();
+      Navigator.pushReplacementNamed(context, AppRoutes.mainLayout.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AuthProvider>(
-      create: (context) => AuthProvider(),
-      child: Consumer<AuthProvider>(
-        builder: (context, provider, child) {
-          return Scaffold(
-            body: Form(
+    return BlocProvider<AuthCubit>(
+      create: (context) => AuthCubit(),
+      child: Scaffold(
+        body: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            final authCubit = context.read<AuthCubit>();
+
+            return Form(
               key: _formKey,
               child: SafeArea(
                 child: Padding(
@@ -32,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.next,
                         customPrefixIcon: const Icon(Icons.email),
                         customLabel: "Email",
-                        controller: provider.emailController,
+                        controller: authCubit.emailController,
                       ),
                       const SizedBox(height: 16),
                       AppTextFormField(
@@ -41,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                         customTextInputAction: TextInputAction.done,
                         customPrefixIcon: const Icon(Icons.lock_open_rounded),
                         customLabel: "Password",
-                        controller: provider.passwordController,
+                        controller: authCubit.passwordController,
                       ),
                       const SizedBox(height: 16),
                       Align(
@@ -66,12 +79,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       AppElevatedButton(
-                        onPress: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            AppRoutes.mainLayout.routeName,
-                          );
-                        },
+                        onPress: () => _onLoginPressed(context),
                         text: "Login",
                         backgroundColor: Theme.of(
                           context,
@@ -140,7 +148,9 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       AppElevatedButton(
-                        onPress: () {},
+                        onPress: () {
+                          // TODO: Implement Google sign-in logic in AuthCubit
+                        },
                         text: "Login with Google",
                         backgroundColor: Theme.of(
                           context,
@@ -151,9 +161,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

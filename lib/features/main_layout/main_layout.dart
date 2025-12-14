@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/app_assets.dart';
-import 'package:movies/presentation/main_layout/explore/explore_tab.dart';
-import 'package:movies/presentation/main_layout/home/home_tab.dart';
-import 'package:movies/presentation/main_layout/profile/profile_tab.dart';
-import 'package:movies/presentation/main_layout/search/search_tab.dart';
+import 'package:movies/features/main_layout/explore/presentation/explore_tab.dart';
+import 'package:movies/features/main_layout/home/presentation/home_tab.dart';
+import 'package:movies/features/main_layout/profile/presentation/profile_tab.dart';
+import 'package:movies/features/main_layout/search/presentation/search_tab.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
