@@ -4,6 +4,13 @@ import 'package:movies/core/theme/app_colors.dart';
 abstract class AppTheme {
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.black,
+    appBarTheme: AppBarTheme(
+      titleTextStyle: TextStyle(
+        color: AppColors.yellow,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       primary: AppColors.white,

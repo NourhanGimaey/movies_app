@@ -5,11 +5,11 @@ part 'login_response_model.g.dart';
 @JsonSerializable()
 class LoginResponseModel {
   @JsonKey(name: 'message')
-  final String message;
+  final String? message;
   @JsonKey(name: 'data')
-  final String data;
+  final String? data;
   @JsonKey(name: 'statusCode')
-  final int statusCode;
+  final int? statusCode;
 
   LoginResponseModel({
     required this.message,
@@ -17,6 +17,7 @@ class LoginResponseModel {
     required this.statusCode,
   });
 
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) => _$LoginResponseModelFromJson(json);
+  factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseModelFromJson(json);
   Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);
 }

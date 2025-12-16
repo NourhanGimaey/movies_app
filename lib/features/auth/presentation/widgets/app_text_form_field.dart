@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTextFormField extends StatefulWidget {
   final String customLabel;
@@ -10,6 +11,8 @@ class AppTextFormField extends StatefulWidget {
   final bool isEmail;
   final bool isPhone;
   final bool isPassword;
+  final bool isConfirmPassword;
+  final TextEditingController? matchPasswordController;
 
   const AppTextFormField({
     super.key,
@@ -22,6 +25,8 @@ class AppTextFormField extends StatefulWidget {
     this.isEmail = false,
     this.isPhone = false,
     this.isPassword = false,
+    this.isConfirmPassword = false,
+    this.matchPasswordController,
   });
 
   @override
@@ -62,6 +67,9 @@ String? passwordValidator(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter your password';
   }
+  if (value.length < 8) {
+    return 'Password must be at least 8 characters long';
+  }
   if (!value.contains(RegExp(r'[A-Z]'))) {
     return 'Password must contain at least one uppercase letter';
   }
@@ -77,24 +85,62 @@ String? passwordValidator(String? value) {
   return null;
 }
 
+String? confirmPasswordValidator(
+  String? confirmPasswordValue,
+  TextEditingController? passwordController,
+) {
+  if (confirmPasswordValue == null || confirmPasswordValue.isEmpty) {
+    return 'Please confirm your password';
+  }
+  if (passwordController == null ||
+      confirmPasswordValue != passwordController.text) {
+    return 'Passwords do not match';
+  }
+  return null;
+}
+
 class _AppTextFormFieldState extends State<AppTextFormField> {
   bool isObscureText = true;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isPhone && widget.controller.text.isEmpty) {
+      widget.controller.text = '+2';
+      widget.controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: widget.controller.text.length),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
       textInputAction: widget.customTextInputAction,
       keyboardType: widget.customKeyboardType,
-      obscureText: widget.isPassword ? isObscureText : !isObscureText,
-      validator: widget.isPassword
-          ? (value) => passwordValidator(value)
-          : widget.isEmail
-          ? (value) => emailValidator(value)
-          : widget.isPhone
-          ? (value) => phoneValidator(value)
-          : widget.isName
-          ? (value) => nameValidator(value)
+      obscureText: widget.isPassword || widget.isConfirmPassword
+          ? isObscureText
+          : !isObscureText,
+      inputFormatters: widget.isPhone
+          ? [FilteringTextInputFormatter.allow(RegExp(r'[\d\+\-\s\(\)]'))]
           : null,
+      validator: (value) {
+        if (widget.isName) {
+          return nameValidator(value);
+        } else if (widget.isEmail) {
+          return emailValidator(value);
+        } else if (widget.isPassword) {
+          return passwordValidator(value);
+        } else if (widget.isConfirmPassword) {
+          return confirmPasswordValidator(
+            value,
+            widget.matchPasswordController,
+          );
+        } else if (widget.isPhone) {
+          return phoneValidator(value);
+        }
+        return null;
+      },
       style: Theme.of(context).textTheme.bodyMedium,
       decoration: InputDecoration(
         filled: true,
@@ -105,7 +151,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         prefixIconColor: Theme.of(context).colorScheme.primary,
         suffixIconColor: Theme.of(context).colorScheme.primary,
         suffixIcon: Visibility(
-          visible: widget.isPassword,
+          visible: widget.isPassword || widget.isConfirmPassword,
           child: IconButton(
             onPressed: () {
               isObscureText = !isObscureText;

@@ -10,3 +10,4 @@ class AppIcons {
   static const String icExploreTab = "assets/icons/explore_tab_ic.svg";
   static const String icProfileTab = "assets/icons/profile_tab_ic.svg";
 }
+

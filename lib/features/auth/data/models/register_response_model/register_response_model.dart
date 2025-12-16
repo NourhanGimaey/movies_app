@@ -5,11 +5,11 @@ part 'register_response_model.g.dart';
 @JsonSerializable()
 class RegisterResponseModel {
   @JsonKey(name: 'message')
-  final String message;
+  final String? message;
   @JsonKey(name: 'data')
-  final Data data;
+  final Data? data;
   @JsonKey(name: 'statusCode')
-  final int statusCode;
+  final int? statusCode;
 
   RegisterResponseModel({
     required this.message,
@@ -17,7 +17,8 @@ class RegisterResponseModel {
     required this.statusCode,
   });
 
-  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) => _$RegisterResponseModelFromJson(json);
+  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$RegisterResponseModelFromJson(json);
   Map<String, dynamic> toJson() => _$RegisterResponseModelToJson(this);
 }
 
@@ -37,7 +38,6 @@ class Data {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
-
 
   Data({
     required this.email,

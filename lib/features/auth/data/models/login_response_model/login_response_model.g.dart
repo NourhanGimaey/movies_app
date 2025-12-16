@@ -8,9 +8,9 @@ part of 'login_response_model.dart';
 
 LoginResponseModel _$LoginResponseModelFromJson(Map<String, dynamic> json) =>
     LoginResponseModel(
-      message: json['message'] as String,
-      data: json['data'] as String,
-      statusCode: (json['statusCode'] as num).toInt(),
+      message: json['message'] as String?,
+      data: json['data'] as String?,
+      statusCode: (json['statusCode'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$LoginResponseModelToJson(LoginResponseModel instance) =>

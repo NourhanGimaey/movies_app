@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.4.7
   flutter_bloc: ^9.1.1
-  provider: ^6.1.5+1
   animate_do: ^4.2.0
   flutter_svg: ^2.2.3
   flutter_screenutil: ^5.9.3
@@ -48,7 +47,11 @@ dependencies:
   injectable: ^2.7.1+2
   get_it: ^9.2.0
   connectivity_plus: ^7.0.0
-  equatable: ^2.0.7
+  provider: ^6.1.5+1
+  carousel_slider: ^5.1.1
+  pretty_dio_logger: ^1.4.0
+  fluttertoast: ^9.0.0
+  shared_preferences: ^2.5.4
 
 dev_dependencies:
   flutter_test:
@@ -58,8 +61,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   retrofit_generator: ^8.1.0  # Or the latest stable version
   injectable_generator: ^2.6.1 # Or the latest stable version
-  
-  flutter_lints: ^4.0.0 # Use a more recent lints version
+  analyzer: ^6.4.1
 
   # This is a safe list of currently stable, compatible versions as of late 2024.
   # If running in the future, you should check pub.dev for the absolute latest versions.
