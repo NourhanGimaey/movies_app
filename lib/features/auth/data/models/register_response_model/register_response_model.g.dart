@@ -9,9 +9,11 @@ part of 'register_response_model.dart';
 RegisterResponseModel _$RegisterResponseModelFromJson(
         Map<String, dynamic> json) =>
     RegisterResponseModel(
-      message: json['message'] as String,
-      data: Data.fromJson(json['data'] as Map<String, dynamic>),
-      statusCode: (json['statusCode'] as num).toInt(),
+      message: json['message'] as String?,
+      data: json['data'] == null
+          ? null
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
+      statusCode: (json['statusCode'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$RegisterResponseModelToJson(

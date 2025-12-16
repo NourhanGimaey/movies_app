@@ -1,59 +1,41 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'auth_state.dart'; // Import the AuthState class
+import 'package:injectable/injectable.dart';
+import 'package:movies/features/auth/domain/use_cases/login_use_case.dart';
+import 'package:movies/features/auth/domain/use_cases/register_use_case.dart';
+import 'package:movies/features/auth/presentation/cubit/auth_state.dart';
+import 'package:movies/features/auth/data/models/register_request_model/register_request_model.dart';
+import 'package:movies/features/auth/data/models/login_request_model/login_request_model.dart';
 
+@injectable
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(const AuthState());
+  final RegisterUseCase _registerUseCase;
+  final LoginUseCase _loginUseCase;
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  AuthCubit(this._registerUseCase, this._loginUseCase) : super(InitialState());
 
-  void submitRegister() async {
-    final newName = nameController.text;
-    final newEmail = emailController.text;
-    final newPassword = passwordController.text;
-    final newConfirmPassword = confirmPasswordController.text;
-    final newPhone = phoneController.text;
-
-    emit(state.copyWith(isLoading: true));
-
-    emit(
-      state.copyWith(
-        name: newName,
-        email: newEmail,
-        password: newPassword,
-        confirmPassword: newConfirmPassword,
-        phone: newPhone,
-        isLoading: false,
-        isRegistrationSuccess: true,
-      ),
+  Future<void> register({required RegisterRequestModel registerModel}) async {
+    emit(LoadingState());
+    final register = await _registerUseCase.call(registerModel);
+    register.fold(
+      (failure) {
+        emit(ErrorState(failure));
+      },
+      (responseModel) {
+        emit(SuccessRegisterState());
+      },
     );
   }
 
-  void submitLogin() {
-    final newEmail = emailController.text;
-    final newPassword = passwordController.text;
-
-    emit(state.copyWith(email: newEmail, password: newPassword));
-  }
-
-  void sendPasswordResetEmail() {
-    final email = emailController.text;
-
-    emit(state.copyWith(email: email));
-  }
-
-  @override
-  Future<void> close() {
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    nameController.dispose();
-    phoneController.dispose();
-    return super.close();
+  Future<void> login({required LoginRequestModel loginModel}) async {
+    emit(LoadingState());
+    final login = await _loginUseCase.call(loginModel);
+    login.fold(
+      (failure) {
+        emit(ErrorState(failure));
+      },
+      (responseModel) {
+        emit(SuccessLoginState());
+      },
+    );
   }
 }
