@@ -22,8 +22,9 @@ import '../../features/auth/domain/repositories/auth_repo.dart' as _i723;
 import '../../features/auth/domain/use_cases/login_use_case.dart' as _i1038;
 import '../../features/auth/domain/use_cases/register_use_case.dart' as _i1010;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
+import '../network/auth_retrofit/auth_retrofit_api_client.dart' as _i351;
 import '../network/dio_module.dart' as _i614;
-import '../network/retrofit_api_client.dart' as _i758;
+import '../network/movies_retrofit/movies_retrofit_api_client.dart' as _i117;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -39,10 +40,12 @@ extension GetItInjectableX on _i174.GetIt {
     final networkModule = _$NetworkModule();
     gh.factory<_i528.PrettyDioLogger>(() => networkModule.prettyDioLogger());
     gh.lazySingleton<_i361.Dio>(() => networkModule.provideDio());
-    gh.singleton<_i758.RetrofitApiClient>(
-        () => _i758.RetrofitApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i351.RetrofitApiClient>(
+        () => _i351.RetrofitApiClient(gh<_i361.Dio>()));
+    gh.singleton<_i117.RetrofitApiClient>(
+        () => _i117.RetrofitApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i862.RemoteDataSource>(
-        () => _i193.RemoteDataSourceImpl(gh<_i758.RetrofitApiClient>()));
+        () => _i193.RemoteDataSourceImpl(gh<_i351.RetrofitApiClient>()));
     gh.lazySingleton<_i723.AuthRepo>(
         () => _i662.AuthRepoImpl(gh<_i862.RemoteDataSource>()));
     gh.factory<_i1010.RegisterUseCase>(

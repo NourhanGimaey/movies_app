@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies/core/network/error_handler.dart';
-import 'package:movies/core/network/retrofit_api_client.dart';
+import 'package:movies/core/network/auth_retrofit/auth_retrofit_api_client.dart';
 import 'package:movies/features/auth/data/data_sources/remote_data_sources/remote_data_source.dart';
 import 'package:movies/features/auth/data/models/login_request_model/login_request_model.dart';
 import 'package:movies/features/auth/data/models/login_response_model/login_response_model.dart';

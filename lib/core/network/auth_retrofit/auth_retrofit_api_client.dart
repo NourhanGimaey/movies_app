@@ -7,19 +7,19 @@ import 'package:movies/features/auth/data/models/register_request_model/register
 import 'package:movies/features/auth/data/models/register_response_model/register_response_model.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'retrofit_api_client.g.dart';
+part 'auth_retrofit_api_client.g.dart';
 
 @singleton
-@RestApi(baseUrl: ApiEndpoint.baseUrl)
+@RestApi(baseUrl: AuthApiEndpoint.baseUrl)
 abstract class RetrofitApiClient {
   @factoryMethod
   factory RetrofitApiClient(Dio dio) = _RetrofitApiClient;
 
-  @POST(ApiEndpoint.registerApi)
+  @POST(AuthApiEndpoint.registerApi)
   Future<RegisterResponseModel> register(
     @Body() RegisterRequestModel registerRequest,
   );
 
-  @POST(ApiEndpoint.loginApi)
+  @POST(AuthApiEndpoint.loginApi)
   Future<LoginResponseModel> login(@Body() LoginRequestModel loginRequest);
 }

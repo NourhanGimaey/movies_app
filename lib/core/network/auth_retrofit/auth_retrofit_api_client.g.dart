@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'retrofit_api_client.dart';
+part of 'auth_retrofit_api_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -9,8 +9,13 @@ part of 'retrofit_api_client.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _RetrofitApiClient implements RetrofitApiClient {
-  // ignore: unused_element_parameter
-  _RetrofitApiClient(this._dio, {this.baseUrl, this.errorLogger}) {
+  _RetrofitApiClient(
+    this._dio, {
+    // ignore: unused_element_parameter
+    this.baseUrl,
+    // ignore: unused_element_parameter
+    this.errorLogger,
+  }) {
     baseUrl ??= 'https://route-movie-apis.vercel.app/';
   }
 
