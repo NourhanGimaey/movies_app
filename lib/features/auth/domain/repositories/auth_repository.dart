@@ -5,8 +5,7 @@ import 'package:movies/features/auth/data/models/login_response_model/login_resp
 import 'package:movies/features/auth/data/models/register_request_model/register_request_model.dart';
 import 'package:movies/features/auth/data/models/register_response_model/register_response_model.dart';
 
-
-abstract interface class RemoteDataSource {
+abstract interface class AuthRepository {
   Future<Either<Failure, RegisterResponseModel>> register(
     RegisterRequestModel registerRequest,
   );
