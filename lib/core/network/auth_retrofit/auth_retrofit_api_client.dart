@@ -11,9 +11,9 @@ part 'auth_retrofit_api_client.g.dart';
 
 @singleton
 @RestApi(baseUrl: AuthApiEndpoint.baseUrl)
-abstract class RetrofitApiClient {
+abstract class AuthRetrofitApiClient {
   @factoryMethod
-  factory RetrofitApiClient(Dio dio) = _RetrofitApiClient;
+  factory AuthRetrofitApiClient(Dio dio) = _AuthRetrofitApiClient;
 
   @POST(AuthApiEndpoint.registerApi)
   Future<RegisterResponseModel> register(

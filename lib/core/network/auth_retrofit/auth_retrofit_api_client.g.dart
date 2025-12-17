@@ -8,8 +8,8 @@ part of 'auth_retrofit_api_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _RetrofitApiClient implements RetrofitApiClient {
-  _RetrofitApiClient(
+class _AuthRetrofitApiClient implements AuthRetrofitApiClient {
+  _AuthRetrofitApiClient(
     this._dio, {
     // ignore: unused_element_parameter
     this.baseUrl,

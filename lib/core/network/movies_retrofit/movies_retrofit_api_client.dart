@@ -10,9 +10,9 @@ part 'movies_retrofit_api_client.g.dart';
 
 @singleton
 @RestApi(baseUrl: MoviesApiEndpoint.baseUrl)
-abstract class RetrofitApiClient {
+abstract class MoviesRetrofitApiClient {
   @factoryMethod
-  factory RetrofitApiClient(Dio dio) = _RetrofitApiClient;
+  factory MoviesRetrofitApiClient(Dio dio) = _MoviesRetrofitApiClient;
 
   @GET(MoviesApiEndpoint.listMoviesApi)
   Future<MoviesListModel> getMoviesList(@Query("genre") String genre);
