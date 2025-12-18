@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Movies',
         theme: AppTheme.darkTheme,
-        initialRoute: AppRoutes.onboardingScreen.routeName,
+        initialRoute: AppRoutes.mainLayout.routeName,
         routes: AppRoutes.routes,
       ),
     );

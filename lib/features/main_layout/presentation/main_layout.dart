@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies/core/dependency_injection/di.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/app_assets.dart';
 import 'package:movies/features/main_layout/presentation/explore/presentation/explore_tab.dart';
 import 'package:movies/features/main_layout/presentation/home/presentation/home_tab.dart';
 import 'package:movies/features/main_layout/presentation/profile/presentation/profile_tab.dart';
+import 'package:movies/features/main_layout/presentation/search/cubit/search_cubit.dart';
 import 'package:movies/features/main_layout/presentation/search/presentation/search_tab.dart';
 
 class MainLayout extends StatefulWidget {
@@ -19,7 +22,7 @@ class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
   List<Widget> tabs = [
     const HomeTab(),
-    const SearchTab(),
+    BlocProvider(create: (context) => getIt<SearchCubit>(), child: SearchTab()),
     const ExploreTab(),
     const ProfileTab(),
   ];

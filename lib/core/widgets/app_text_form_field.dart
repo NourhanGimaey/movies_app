@@ -6,13 +6,14 @@ class AppTextFormField extends StatefulWidget {
   final TextInputType customKeyboardType;
   final TextInputAction customTextInputAction;
   final Widget? customPrefixIcon;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool isName;
   final bool isEmail;
   final bool isPhone;
   final bool isPassword;
   final bool isConfirmPassword;
   final TextEditingController? matchPasswordController;
+  final void Function(String)? onChanged;
 
   const AppTextFormField({
     super.key,
@@ -20,13 +21,14 @@ class AppTextFormField extends StatefulWidget {
     required this.customTextInputAction,
     required this.customPrefixIcon,
     required this.customLabel,
-    required this.controller,
+    this.controller,
     this.isName = false,
     this.isEmail = false,
     this.isPhone = false,
     this.isPassword = false,
     this.isConfirmPassword = false,
     this.matchPasswordController,
+    this.onChanged,
   });
 
   @override
@@ -104,10 +106,10 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   @override
   void initState() {
     super.initState();
-    if (widget.isPhone && widget.controller.text.isEmpty) {
-      widget.controller.text = '+2';
-      widget.controller.selection = TextSelection.fromPosition(
-        TextPosition(offset: widget.controller.text.length),
+    if (widget.isPhone && widget.controller!.text.isEmpty) {
+      widget.controller!.text = '+2';
+      widget.controller!.selection = TextSelection.fromPosition(
+        TextPosition(offset: widget.controller!.text.length),
       );
     }
   }
@@ -116,6 +118,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      onChanged: widget.onChanged,
       textInputAction: widget.customTextInputAction,
       keyboardType: widget.customKeyboardType,
       obscureText: widget.isPassword || widget.isConfirmPassword
@@ -147,7 +150,10 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         fillColor: Theme.of(context).colorScheme.primaryContainer,
         label: Text(widget.customLabel),
         hintStyle: Theme.of(context).textTheme.bodyMedium,
-        prefixIcon: widget.customPrefixIcon,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: widget.customPrefixIcon,
+        ),
         prefixIconColor: Theme.of(context).colorScheme.primary,
         suffixIconColor: Theme.of(context).colorScheme.primary,
         suffixIcon: Visibility(

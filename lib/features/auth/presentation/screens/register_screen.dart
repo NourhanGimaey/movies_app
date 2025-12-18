@@ -8,7 +8,7 @@ import 'package:movies/features/auth/data/models/register_request_model/register
 import 'package:movies/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:movies/features/auth/presentation/cubit/auth_state.dart';
 import 'package:movies/features/auth/presentation/models/avatar_model.dart';
-import 'package:movies/features/auth/presentation/widgets/app_text_form_field.dart';
+import 'package:movies/core/widgets/app_text_form_field.dart';
 import 'package:movies/core/widgets/app_elevated_button.dart';
 
 class RegisterScreen extends StatefulWidget {
