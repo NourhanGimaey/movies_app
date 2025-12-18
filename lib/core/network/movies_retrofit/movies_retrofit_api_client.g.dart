@@ -52,16 +52,20 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
     try {
       _value = MoviesListModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options,_result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
   }
 
   @override
-  Future<MoviesListModel> searchMovies(String queryTerm) async {
+  Future<MoviesListModel> searchMovies(
+    String queryTerm,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'query_term': queryTerm};
+    final queryParameters = <String, dynamic>{
+      r'query_term': queryTerm,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MoviesListModel>(Options(

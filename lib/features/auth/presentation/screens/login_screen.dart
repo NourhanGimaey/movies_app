@@ -7,7 +7,7 @@ import 'package:movies/core/utils/app_routes.dart';
 import 'package:movies/features/auth/data/models/login_request_model/login_request_model.dart';
 import 'package:movies/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:movies/features/auth/presentation/cubit/auth_state.dart';
-import 'package:movies/features/auth/presentation/widgets/app_text_form_field.dart';
+import 'package:movies/core/widgets/app_text_form_field.dart';
 import 'package:movies/core/widgets/app_elevated_button.dart';
 
 class LoginScreen extends StatefulWidget {

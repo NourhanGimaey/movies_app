@@ -1,6 +1,6 @@
 import 'package:movies/core/network/error_handler.dart';
 
-abstract class AuthState {}
+sealed class AuthState {}
 
 class InitialState extends AuthState {}
 
