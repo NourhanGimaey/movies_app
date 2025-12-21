@@ -5,12 +5,27 @@ import 'package:movies/features/main_layout/data/models/movie_suggestion_model/m
 import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 
 abstract interface class MoviesRepository {
-  Future<Either<Failure, MoviesListModel>> getMoviesList(String genre);
-  Future<Either<Failure, MoviesListModel>> searchMovies(String queryTerm);
-  Future<Either<Failure, MovieDetailsModel>> getMovieDetails(
-    int movieId,
-    bool withImages,
-    bool withCast,
-  );
-  Future<Either<Failure, MovieSuggestionModel>> getMovieSuggestion(int movieId);
+  Future<Either<Failure, MoviesListModel>> getMoviesList({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  });
+
+  Future<Either<Failure, MoviesListModel>> searchMovies({
+    required String queryTerm,
+    int? page,
+    int? limit,
+    String? genre,
+  });
+
+  Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
+    required int movieId,
+    bool? withImages,
+    bool? withCast,
+  });
+
+  Future<Either<Failure, MovieSuggestionModel>> getMovieSuggestion({
+    required int movieId,
+  });
 }

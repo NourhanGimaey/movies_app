@@ -7,9 +7,20 @@ import 'package:movies/features/main_layout/domain/repositories/movies_repositor
 @injectable
 class SearchMoviesUseCase {
   final MoviesRepository _moviesRepository;
+
   const SearchMoviesUseCase(this._moviesRepository);
 
-  Future<Either<Failure, MoviesListModel>> call(String queryTerm) async {
-    return _moviesRepository.searchMovies(queryTerm);
+  Future<Either<Failure, MoviesListModel>> call({
+    required String queryTerm,
+    int? page,
+    int? limit,
+    String? genre,
+  }) async {
+    return await _moviesRepository.searchMovies(
+      queryTerm: queryTerm,
+      page: page,
+      limit: limit,
+      genre: genre,
+    );
   }
 }

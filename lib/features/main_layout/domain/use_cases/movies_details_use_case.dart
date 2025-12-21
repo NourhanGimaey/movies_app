@@ -10,11 +10,15 @@ class MoviesDetailsUseCase {
 
   const MoviesDetailsUseCase(this._moviesRepository);
 
-  Future<Either<Failure, MovieDetailsModel>> call(
-    int movieId,
-    bool withImages,
-    bool withCast,
-  ) async {
-    return _moviesRepository.getMovieDetails(movieId, withImages, withCast);
+  Future<Either<Failure, MovieDetailsModel>> call({
+    required int movieId,
+    bool? withImages,
+    bool? withCast,
+  }) async {
+    return await _moviesRepository.getMovieDetails(
+      movieId: movieId,
+      withImages: withImages,
+      withCast: withCast,
+    );
   }
 }

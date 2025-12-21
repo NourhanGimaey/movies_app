@@ -26,9 +26,20 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MoviesListModel> getMoviesList(String genre) async {
+  Future<MoviesListModel> getMoviesList(
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'genre': genre};
+    final queryParameters = <String, dynamic>{
+      r'genre': genre,
+      r'page': page,
+      r'limit': limit,
+      r'sort_by': sortBy,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MoviesListModel>(Options(
@@ -60,12 +71,19 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
 
   @override
   Future<MoviesListModel> searchMovies(
-    String queryTerm,
+    String? queryTerm,
+    int? page,
+    int? limit,
+    String? genre,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query_term': queryTerm,
+      r'page': page,
+      r'limit': limit,
+      r'genre': genre,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MoviesListModel>(Options(
@@ -98,8 +116,8 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
   @override
   Future<MovieDetailsModel> getMovieDetails(
     int movieId,
-    bool withImages,
-    bool withCast,
+    bool? withImages,
+    bool? withCast,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -107,6 +125,7 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
       r'with_images': withImages,
       r'with_cast': withCast,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MovieDetailsModel>(Options(

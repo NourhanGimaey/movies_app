@@ -10,7 +10,9 @@ class MoviesSuggestionsUseCase {
 
   const MoviesSuggestionsUseCase(this._moviesRepository);
 
-  Future<Either<Failure, MovieSuggestionModel>> call(int movieId) async {
-    return _moviesRepository.getMovieSuggestion(movieId);
+  Future<Either<Failure, MovieSuggestionModel>> call({
+    required int movieId,
+  }) async {
+    return await _moviesRepository.getMovieSuggestion(movieId: movieId);
   }
 }

@@ -15,16 +15,26 @@ abstract class MoviesRetrofitApiClient {
   factory MoviesRetrofitApiClient(Dio dio) = _MoviesRetrofitApiClient;
 
   @GET(MoviesApiEndpoint.listMoviesApi)
-  Future<MoviesListModel> getMoviesList(@Query("genre") String genre);
+  Future<MoviesListModel> getMoviesList(
+    @Query("genre") String? genre,
+    @Query("page") int? page,
+    @Query("limit") int? limit,
+    @Query("sort_by") String? sortBy,
+  );
 
   @GET(MoviesApiEndpoint.listMoviesApi)
-  Future<MoviesListModel> searchMovies(@Query("query_term") String queryTerm);
+  Future<MoviesListModel> searchMovies(
+    @Query("query_term") String? queryTerm,
+    @Query("page") int? page,
+    @Query("limit") int? limit,
+    @Query("genre") String? genre,
+  );
 
   @GET(MoviesApiEndpoint.movieDetailsApi)
   Future<MovieDetailsModel> getMovieDetails(
     @Query("movie_id") int movieId,
-    @Query("with_images") bool withImages,
-    @Query("with_cast") bool withCast,
+    @Query("with_images") bool? withImages,
+    @Query("with_cast") bool? withCast,
   );
 
   @GET(MoviesApiEndpoint.movieSuggestionApi)
