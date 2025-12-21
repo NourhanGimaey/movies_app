@@ -11,14 +11,25 @@ import 'package:movies/features/main_layout/data/models/movies_list_model/movies
 class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   final MoviesRetrofitApiClient _moviesRetrofitApiClient;
   // final AuthRetrofitApiClient _authRetrofitApiClient;
-  const MoviesRemoteDataSourceImpl(this._moviesRetrofitApiClient, 
-  // this._authRetrofitApiClient
+  const MoviesRemoteDataSourceImpl(
+    this._moviesRetrofitApiClient,
+    // this._authRetrofitApiClient
   );
 
   @override
-  Future<Either<Failure, MoviesListModel>> getMoviesList(String genre) async {
+  Future<Either<Failure, MoviesListModel>> getMoviesList({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  }) async {
     try {
-      final response = await _moviesRetrofitApiClient.getMoviesList(genre);
+      final response = await _moviesRetrofitApiClient.getMoviesList(
+        genre,
+        page,
+        limit,
+        sortBy,
+      );
       return Right(response);
     } catch (exception) {
       return Left(ErrorHandler.handle(exception).failure);
@@ -26,11 +37,19 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, MoviesListModel>> searchMovies(
-    String queryTerm,
-  ) async {
+  Future<Either<Failure, MoviesListModel>> searchMovies({
+    required String queryTerm,
+    int? page,
+    int? limit,
+    String? genre,
+  }) async {
     try {
-      final response = await _moviesRetrofitApiClient.searchMovies(queryTerm);
+      final response = await _moviesRetrofitApiClient.searchMovies(
+        queryTerm,
+        page,
+        limit,
+        genre,
+      );
       return Right(response);
     } catch (exception) {
       return Left(ErrorHandler.handle(exception).failure);
@@ -38,11 +57,11 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, MovieDetailsModel>> getMovieDetails(
-    int movieId,
-    bool withImages,
-    bool withCast,
-  ) async {
+  Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
+    required int movieId,
+    bool? withImages,
+    bool? withCast,
+  }) async {
     try {
       final response = await _moviesRetrofitApiClient.getMovieDetails(
         movieId,
@@ -56,9 +75,9 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, MovieSuggestionModel>> getMovieSuggestion(
-    int movieId,
-  ) async {
+  Future<Either<Failure, MovieSuggestionModel>> getMovieSuggestion({
+    required int movieId,
+  }) async {
     try {
       final response = await _moviesRetrofitApiClient.getMovieSuggestion(
         movieId,

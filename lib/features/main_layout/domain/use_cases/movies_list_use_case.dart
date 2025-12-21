@@ -10,7 +10,17 @@ class MoviesListUseCase {
 
   const MoviesListUseCase(this._moviesRepository);
 
-  Future<Either<Failure, MoviesListModel>> call(String genre) async {
-    return _moviesRepository.getMoviesList(genre);
+  Future<Either<Failure, MoviesListModel>> call({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  }) async {
+    return await _moviesRepository.getMoviesList(
+      genre: genre,
+      page: page,
+      limit: limit,
+      sortBy: sortBy,
+    );
   }
 }

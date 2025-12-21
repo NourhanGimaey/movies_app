@@ -17,36 +17,18 @@ class MoviesRepositoryImpl implements MoviesRepository {
   final Failure _noInternetConnection = DataSource.noInternetConnection.failure;
 
   @override
-  Future<Either<Failure, MoviesListModel>> getMoviesList(String genre) async {
+  Future<Either<Failure, MoviesListModel>> getMoviesList({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  }) async {
     if (await ConnectivityChecker.checkInternetConnection()) {
-      return _moviesRemoteDataSource.getMoviesList(genre);
-    } else {
-      return Left(_noInternetConnection);
-    }
-  }
-
-  @override
-  Future<Either<Failure, MoviesListModel>> searchMovies(
-    String queryTerm,
-  ) async {
-    if (await ConnectivityChecker.checkInternetConnection()) {
-      return _moviesRemoteDataSource.searchMovies(queryTerm);
-    } else {
-      return Left(_noInternetConnection);
-    }
-  }
-
-  @override
-  Future<Either<Failure, MovieDetailsModel>> getMovieDetails(
-    int movieId,
-    bool withImages,
-    bool withCast,
-  ) async {
-    if (await ConnectivityChecker.checkInternetConnection()) {
-      return _moviesRemoteDataSource.getMovieDetails(
-        movieId,
-        withImages,
-        withCast,
+      return _moviesRemoteDataSource.getMoviesList(
+        genre: genre,
+        page: page,
+        limit: limit,
+        sortBy: sortBy,
       );
     } else {
       return Left(_noInternetConnection);
@@ -54,11 +36,47 @@ class MoviesRepositoryImpl implements MoviesRepository {
   }
 
   @override
-  Future<Either<Failure, MovieSuggestionModel>> getMovieSuggestion(
-    int movieId,
-  ) async {
+  Future<Either<Failure, MoviesListModel>> searchMovies({
+    required String queryTerm,
+    int? page,
+    int? limit,
+    String? genre,
+  }) async {
     if (await ConnectivityChecker.checkInternetConnection()) {
-      return _moviesRemoteDataSource.getMovieSuggestion(movieId);
+      return _moviesRemoteDataSource.searchMovies(
+        queryTerm: queryTerm,
+        page: page,
+        limit: limit,
+        genre: genre,
+      );
+    } else {
+      return Left(_noInternetConnection);
+    }
+  }
+
+  @override
+  Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
+    required int movieId,
+    bool? withImages,
+    bool? withCast,
+  }) async {
+    if (await ConnectivityChecker.checkInternetConnection()) {
+      return _moviesRemoteDataSource.getMovieDetails(
+        movieId: movieId,
+        withImages: withImages,
+        withCast: withCast,
+      );
+    } else {
+      return Left(_noInternetConnection);
+    }
+  }
+
+  @override
+  Future<Either<Failure, MovieSuggestionModel>> getMovieSuggestion({
+    required int movieId,
+  }) async {
+    if (await ConnectivityChecker.checkInternetConnection()) {
+      return _moviesRemoteDataSource.getMovieSuggestion(movieId: movieId);
     } else {
       return Left(_noInternetConnection);
     }

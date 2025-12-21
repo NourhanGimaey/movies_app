@@ -8,16 +8,16 @@ import 'package:movies/features/main_layout/presentation/search/cubit/search_sta
 import 'package:movies/features/main_layout/presentation/search/presentation/widgets/search_movies_grid.dart';
 
 class SearchTab extends StatelessWidget {
-  SearchTab({super.key});
+  const SearchTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            spacing: 16,
+            spacing: 24,
             children: [
               AppTextFormField(
                 customKeyboardType: TextInputType.text,
@@ -27,15 +27,17 @@ class SearchTab extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                 ),
                 customLabel: "Search",
-                onChanged: (value) {
-                  context.read<SearchCubit>().searchMovies(value);
+                onChanged: (searchValue) {
+                  context.read<SearchCubit>().searchMovies(
+                    queryTerm: searchValue,
+                  );
                 },
               ),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   if (state is LoadingState) {
-                    return Expanded(
-                      child: const Center(child: CircularProgressIndicator()),
+                    return const Expanded(
+                      child: Center(child: CircularProgressIndicator()),
                     );
                   } else if (state is ErrorState) {
                     return Expanded(
