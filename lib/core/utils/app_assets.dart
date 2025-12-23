@@ -3,6 +3,8 @@ class AppImages {
   static const String appLogo = "assets/images/ss_logo.png";
   static const String forgotPassword = "assets/images/forgot_password.png";
   static const String emptyPageImage = "assets/images/empty_page_image.png";
+  static const String availableNow = "assets/images/available_now.png";
+  static const String watchNow = "assets/images/watch_now.png";
 }
 
 class AppIcons {
@@ -11,4 +13,3 @@ class AppIcons {
   static const String icExploreTab = "assets/icons/explore_tab_ic.svg";
   static const String icProfileTab = "assets/icons/profile_tab_ic.svg";
 }
-
