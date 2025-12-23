@@ -39,6 +39,8 @@ import '../../features/main_layout/domain/use_cases/movies_suggestions_use_case.
     as _i852;
 import '../../features/main_layout/domain/use_cases/search_movies_use_case.dart'
     as _i798;
+import '../../features/main_layout/presentation/home/cubit/home_cubit.dart'
+    as _i250;
 import '../../features/main_layout/presentation/search/cubit/search_cubit.dart'
     as _i616;
 import '../network/auth_retrofit/auth_retrofit_api_client.dart' as _i170;
@@ -87,6 +89,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1058.MoviesListUseCase(gh<_i243.MoviesRepository>()));
     gh.factory<_i852.MoviesSuggestionsUseCase>(
         () => _i852.MoviesSuggestionsUseCase(gh<_i243.MoviesRepository>()));
+    gh.factory<_i250.HomeCubit>(
+        () => _i250.HomeCubit(gh<_i1058.MoviesListUseCase>()));
     gh.factory<_i616.SearchCubit>(
         () => _i616.SearchCubit(gh<_i798.SearchMoviesUseCase>()));
     return this;

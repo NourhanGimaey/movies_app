@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/core/widgets/movie_card.dart';
+import 'package:movies/features/main_layout/presentation/widgets/movie_card.dart';
 import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 import 'package:movies/features/main_layout/presentation/search/cubit/search_cubit.dart';
 import 'package:provider/provider.dart';
