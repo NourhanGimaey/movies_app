@@ -53,7 +53,7 @@ class CustomRow extends StatelessWidget {
               ),
               SizedBox(width: 8),
               Text(
-                "${movieDetails?.runtime?.toString() ?? "0"}",
+                movieDetails?.runtime?.toString() ?? "0",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],

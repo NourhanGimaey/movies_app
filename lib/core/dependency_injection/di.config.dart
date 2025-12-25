@@ -93,10 +93,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i852.MoviesSuggestionsUseCase(gh<_i243.MoviesRepository>()));
     gh.factory<_i250.HomeCubit>(
         () => _i250.HomeCubit(gh<_i1058.MoviesListUseCase>()));
+    gh.factory<_i87.MovieDetailsCubit>(() => _i87.MovieDetailsCubit(
+          gh<_i118.MoviesDetailsUseCase>(),
+          gh<_i852.MoviesSuggestionsUseCase>(),
+        ));
     gh.factory<_i616.SearchCubit>(
         () => _i616.SearchCubit(gh<_i798.SearchMoviesUseCase>()));
-    gh.factory<_i87.MovieDetailsCubit>(
-        () => _i87.MovieDetailsCubit(gh<_i118.MoviesDetailsUseCase>()));
     return this;
   }
 }

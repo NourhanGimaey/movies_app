@@ -8,7 +8,7 @@ import 'package:movies/features/auth/presentation/screens/register_screen.dart';
 import 'package:movies/features/main_layout/presentation/main_layout.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/cubit/movie_details_cubit.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/presentation/movie_details_screen.dart';
-import 'package:movies/features/onboarding/presentation/provider/Intro_provider.dart';
+import 'package:movies/features/onboarding/presentation/provider/intro_provider.dart';
 import 'package:movies/features/onboarding/presentation/screens/intro_screen.dart';
 import 'package:movies/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:provider/provider.dart';

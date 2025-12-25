@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element_parameter
+
 part of 'movies_retrofit_api_client.dart';
 
 // **************************************************************************
@@ -11,9 +13,7 @@ part of 'movies_retrofit_api_client.dart';
 class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
   _MoviesRetrofitApiClient(
     this._dio, {
-    // ignore: unused_element_parameter
     this.baseUrl,
-    // ignore: unused_element_parameter
     this.errorLogger,
   }) {
     baseUrl ??= 'https://yts.lt/api/';
@@ -149,7 +149,7 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
     try {
       _value = MovieDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options,_result);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;

@@ -21,12 +21,12 @@ class CastContainer extends StatelessWidget {
           Container(
             width: 70.w,
             height: 70.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.r),
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16.r),
               child: Image.network(cast.urlSmallImage ?? '', fit: BoxFit.cover),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.r),
             ),
           ),
           SizedBox(width: 16.w),

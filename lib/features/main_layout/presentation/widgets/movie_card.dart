@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/utils/app_routes.dart';
-import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 
 class MovieCard extends StatelessWidget {
-  final Movies movies;
+  final dynamic movies;
   const MovieCard({super.key, required this.movies});
 
   @override
@@ -20,7 +19,7 @@ class MovieCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(movies.largeCoverImage),
+            image: NetworkImage(movies.mediumCoverImage),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(16),

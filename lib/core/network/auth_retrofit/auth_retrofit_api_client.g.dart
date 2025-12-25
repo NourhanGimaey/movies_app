@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element_parameter
+
 part of 'auth_retrofit_api_client.dart';
 
 // **************************************************************************
@@ -11,9 +13,7 @@ part of 'auth_retrofit_api_client.dart';
 class _AuthRetrofitApiClient implements AuthRetrofitApiClient {
   _AuthRetrofitApiClient(
     this._dio, {
-    // ignore: unused_element_parameter
     this.baseUrl,
-    // ignore: unused_element_parameter
     this.errorLogger,
   }) {
     baseUrl ??= 'https://route-movie-apis.vercel.app/';
