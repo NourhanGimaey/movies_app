@@ -63,8 +63,8 @@ class MoviesRepositoryImpl implements MoviesRepository {
     if (await ConnectivityChecker.checkInternetConnection()) {
       return _moviesRemoteDataSource.getMovieDetails(
         movieId: movieId,
-        withImages: withImages,
-        withCast: withCast,
+        withImages: true,
+        withCast: true,
       );
     } else {
       return Left(_noInternetConnection);

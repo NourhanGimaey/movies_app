@@ -59,8 +59,8 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   @override
   Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
     required int movieId,
-    bool? withImages,
-    bool? withCast,
+    bool? withImages = true,
+    bool? withCast = true,
   }) async {
     try {
       final response = await _moviesRetrofitApiClient.getMovieDetails(

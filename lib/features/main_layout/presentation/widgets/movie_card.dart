@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:movies/core/utils/app_routes.dart';
 import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 
 class MovieCard extends StatelessWidget {
   final Movies movies;
-  final void Function()? onTap;
-  const MovieCard({super.key, required this.movies, this.onTap});
+  const MovieCard({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.movieDetailsScreen.routeName,
+          arguments: movies,
+        );
+      },
       borderRadius: BorderRadius.circular(16),
       child: Container(
         decoration: BoxDecoration(

@@ -17,8 +17,8 @@ class MoviesDetailsUseCase {
   }) async {
     return await _moviesRepository.getMovieDetails(
       movieId: movieId,
-      withImages: withImages,
-      withCast: withCast,
+      withImages: true,
+      withCast: true,
     );
   }
 }
