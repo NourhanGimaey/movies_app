@@ -52,6 +52,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   fluttertoast: ^9.0.0
   shared_preferences: ^2.5.4
+  google_fonts: ^6.3.3
 
 dev_dependencies:
   flutter_test:

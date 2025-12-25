@@ -21,7 +21,7 @@ class SearchMoviesGrid extends StatelessWidget {
           childAspectRatio: 0.6,
         ),
         itemBuilder: (context, index) {
-          return MovieCard(movies: data.movies[index], onTap: () {});
+          return MovieCard(movies: data.movies[index]);
         },
         controller: context.read<SearchCubit>().scrollController,
       ),

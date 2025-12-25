@@ -149,7 +149,7 @@ class _MoviesRetrofitApiClient implements MoviesRetrofitApiClient {
     try {
       _value = MovieDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options,_result);
       rethrow;
     }
     return _value;
