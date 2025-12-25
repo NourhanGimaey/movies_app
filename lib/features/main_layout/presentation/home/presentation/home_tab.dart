@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/core/utils/app_assets.dart';
 import 'package:movies/features/main_layout/presentation/widgets/movie_card.dart';
 import 'package:movies/features/main_layout/presentation/home/cubit/home_cubit.dart';
 import 'package:movies/features/main_layout/presentation/home/cubit/home_state.dart';
@@ -13,74 +12,56 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state is ErrorState) {
-              return Center(child: Text(state.failure.message));
-            }
+      body: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          if (state is ErrorState) {
+            return Center(child: Text(state.failure.message));
+          }
 
-            if (state is SuccessState) {
-              final movieData = state.moviesListModel.data;
-              final moviesList = state.moviesListModel.data.movies;
+          if (state is SuccessState) {
+            final movieData = state.moviesListModel.data;
+            final moviesList = state.moviesListModel.data.movies;
 
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  HomeCarouselSlider(data: movieData),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          spacing: 16,
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(AppImages.availableNow),
-                            HomeCarouselSlider(data: movieData),
-                            Image.asset(AppImages.watchNow),
-                          ],
+                        Text("Genre"),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "See More →",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                           Text(
-                            "Genre",
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "See More →",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                            ),
-                          ),
-                        ],
+                  ),
+                  SizedBox(
+                    height: 250.h,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: moviesList.length,
+                      separatorBuilder: (context, index) => SizedBox(width: 16),
+                      itemBuilder: (context, index) => SizedBox(
+                        width: 150.w,
+                        child: MovieCard(movies: moviesList[index]),
                       ),
                     ),
-                    SizedBox(
-                      height: 250.h,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: moviesList.length,
-                        separatorBuilder: (context, index) =>
-                            SizedBox(width: 16),
-                        itemBuilder: (context, index) => SizedBox(
-                          width: 150.w,
-                          child: MovieCard(movies: moviesList[index]),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+                  ),
+                ],
+              ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
