@@ -28,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  int _selectedAvatarId = 0;
+  final int _selectedAvatarId = 0;
 
   @override
   void dispose() {

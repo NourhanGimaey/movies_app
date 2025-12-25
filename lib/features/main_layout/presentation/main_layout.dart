@@ -75,6 +75,7 @@ class CustomBottomNavBarItem extends BottomNavigationBarItem {
     : super(
         label: title,
         icon: SvgPicture.asset(iconPath),
+        // ignore: deprecated_member_use
         activeIcon: SvgPicture.asset(iconPath, color: AppColors.yellow),
       );
 }

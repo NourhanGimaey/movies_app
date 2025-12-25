@@ -1,5 +1,6 @@
 import 'package:movies/core/network/error_handler.dart';
 import 'package:movies/features/main_layout/data/models/movie_details_model/movie_details_model.dart';
+import 'package:movies/features/main_layout/data/models/movie_suggestion_model/movie_suggestion_model.dart';
 
 sealed class MovieDetailsState {}
 
@@ -13,6 +14,7 @@ class ErrorState extends MovieDetailsState {
 }
 
 class SuccessState extends MovieDetailsState {
-  final MovieDetailsModel movieDetailsModel;
-  SuccessState(this.movieDetailsModel);
+  final MovieDetailsModel? movieDetailsModel;
+  final MovieSuggestionModel? movieSuggestionModel;
+  SuccessState(this.movieDetailsModel, this.movieSuggestionModel);
 }

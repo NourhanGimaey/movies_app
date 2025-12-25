@@ -5,7 +5,7 @@ import 'package:movies/core/widgets/app_text_form_field.dart';
 import 'package:movies/core/widgets/app_elevated_button.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  ForgotPasswordScreen({super.key});
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -169,11 +169,11 @@ class ErrorHandler implements Exception {
       String message = '';
       data.forEach((key, value) {
         if (value is List) {
-          message += value.map((e) => e.toString()).join('\n') + '\n';
+          message += '${value.map((e) => e.toString()).join('\n')}\n';
         } else if (value is String) {
-          message += value + '\n';
+          message += '$value\n';
         } else {
-          message += value.toString() + '\n';
+          message += '$value\n';
         }
       });
       return message.trim();
