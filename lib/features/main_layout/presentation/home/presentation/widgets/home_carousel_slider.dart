@@ -7,7 +7,7 @@ import 'package:movies/features/main_layout/presentation/widgets/movie_card.dart
 import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 
 class HomeCarouselSlider extends StatefulWidget {
-  final Data data;
+  final Data? data;
 
   const HomeCarouselSlider({super.key, required this.data});
 
@@ -27,14 +27,14 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
           duration: const Duration(milliseconds: 500),
           child: Container(
             key: ValueKey<String>(
-              widget.data.movies[_currentIndex].largeCoverImage,
+              widget.data!.movies![_currentIndex]!.largeCoverImage ?? '',
             ),
             height: 650.h,
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  widget.data.movies[_currentIndex].largeCoverImage,
+                  widget.data!.movies![_currentIndex]!.largeCoverImage ?? '',
                 ),
                 fit: BoxFit.cover,
               ),
@@ -61,10 +61,10 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
         Positioned(top: 50.h, child: Image.asset(AppImages.availableNow)),
 
         CarouselSlider.builder(
-          itemCount: widget.data.movies.length,
+          itemCount: widget.data!.movies!.length,
           itemBuilder: (context, index, realIndex) => SizedBox(
             width: double.infinity,
-            child: MovieCard(movies: widget.data.movies[index]),
+            child: MovieCard(movies: widget.data!.movies![index]),
           ),
           options: CarouselOptions(
             enlargeCenterPage: true,

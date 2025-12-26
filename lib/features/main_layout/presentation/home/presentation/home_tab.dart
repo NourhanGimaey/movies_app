@@ -20,7 +20,7 @@ class HomeTab extends StatelessWidget {
 
           if (state is SuccessState) {
             final movieData = state.moviesListModel.data;
-            final moviesList = state.moviesListModel.data.movies;
+            final moviesList = state.moviesListModel.data!.movies;
 
             return SingleChildScrollView(
               child: Column(
@@ -48,7 +48,7 @@ class HomeTab extends StatelessWidget {
                     height: 250.h,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: moviesList.length,
+                      itemCount: moviesList!.length,
                       separatorBuilder: (context, index) => SizedBox(width: 16),
                       itemBuilder: (context, index) => SizedBox(
                         width: 150.w,

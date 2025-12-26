@@ -6,14 +6,15 @@ import 'package:movies/features/main_layout/presentation/search/cubit/search_cub
 import 'package:provider/provider.dart';
 
 class SearchMoviesGrid extends StatelessWidget {
-  final Data data;
-  const SearchMoviesGrid({super.key, required this.data});
+  final List<Movies> movies;
+
+  const SearchMoviesGrid({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-        itemCount: data.movies.length,
+        itemCount: movies.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 16.h,
@@ -21,7 +22,7 @@ class SearchMoviesGrid extends StatelessWidget {
           childAspectRatio: 0.6,
         ),
         itemBuilder: (context, index) {
-          return MovieCard(movies: data.movies[index]);
+          return MovieCard(movies: movies[index]);
         },
         controller: context.read<SearchCubit>().scrollController,
       ),

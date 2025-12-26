@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/core/dependency_injection/di.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/app_assets.dart';
+import 'package:movies/features/main_layout/presentation/explore/cubit/explore_cubit.dart';
 import 'package:movies/features/main_layout/presentation/explore/presentation/explore_tab.dart';
 import 'package:movies/features/main_layout/presentation/home/cubit/home_cubit.dart';
 import 'package:movies/features/main_layout/presentation/home/presentation/home_tab.dart';
@@ -24,7 +25,10 @@ class _MainLayoutState extends State<MainLayout> {
   List<Widget> tabs = [
     BlocProvider(create: (context) => getIt<HomeCubit>(), child: HomeTab()),
     BlocProvider(create: (context) => getIt<SearchCubit>(), child: SearchTab()),
-    const ExploreTab(),
+    BlocProvider(
+      create: (context) => getIt<ExploreCubit>(),
+      child: ExploreTab(),
+    ),
     const ProfileTab(),
   ];
 

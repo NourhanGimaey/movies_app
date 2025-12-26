@@ -5,19 +5,19 @@ part 'movies_list_model.g.dart';
 @JsonSerializable()
 class MoviesListModel {
   @JsonKey(name: 'status')
-  final String status;
+  final String? status;
   @JsonKey(name: 'status_message')
-  final String statusMessage;
+  final String? statusMessage;
   @JsonKey(name: 'data')
-  final Data data;
+  final Data? data;
   @JsonKey(name: '@meta')
-  final Meta meta;
+  final Meta? meta;
 
   MoviesListModel({
-    required this.status,
-    required this.statusMessage,
-    required this.data,
-    required this.meta,
+    this.status,
+    this.statusMessage,
+    this.data,
+    this.meta,
   });
 
   factory MoviesListModel.fromJson(Map<String, dynamic> json) => _$MoviesListModelFromJson(json);
@@ -27,19 +27,19 @@ class MoviesListModel {
 @JsonSerializable()
 class Meta {
   @JsonKey(name: 'server_time')
-  final int serverTime;
+  final int? serverTime;
   @JsonKey(name: 'server_timezone')
-  final String serverTimezone;
+  final String? serverTimezone;
   @JsonKey(name: 'api_version')
-  final int apiVersion;
+  final int? apiVersion;
   @JsonKey(name: 'execution_time')
-  final String executionTime;
+  final String? executionTime;
 
   Meta({
-    required this.serverTime,
-    required this.serverTimezone,
-    required this.apiVersion,
-    required this.executionTime,
+    this.serverTime,
+    this.serverTimezone,
+    this.apiVersion,
+    this.executionTime,
   });
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
@@ -49,19 +49,19 @@ class Meta {
 @JsonSerializable()
 class Data {
   @JsonKey(name: 'movie_count')
-  final int movieCount;
+  final int? movieCount;
   @JsonKey(name: 'limit')
-  final int limit;
+  final int? limit;
   @JsonKey(name: 'page_number')
-  final int pageNumber;
+  final int? pageNumber;
   @JsonKey(name: 'movies')
-  final List<Movies> movies;
+  final List<Movies?>? movies;
 
   Data({
-    required this.movieCount,
-    required this.limit,
-    required this.pageNumber,
-    required this.movies,
+    this.movieCount,
+    this.limit,
+    this.pageNumber,
+    this.movies,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
@@ -71,85 +71,85 @@ class Data {
 @JsonSerializable()
 class Movies {
   @JsonKey(name: 'id')
-  final int id;
+  final int? id;
   @JsonKey(name: 'url')
-  final String url;
+  final String? url;
   @JsonKey(name: 'imdb_code')
-  final String imdbCode;
+  final String? imdbCode;
   @JsonKey(name: 'title')
-  final String title;
+  final String? title;
   @JsonKey(name: 'title_english')
-  final String titleEnglish;
+  final String? titleEnglish;
   @JsonKey(name: 'title_long')
-  final String titleLong;
+  final String? titleLong;
   @JsonKey(name: 'slug')
-  final String slug;
+  final String? slug;
   @JsonKey(name: 'year')
-  final int year;
+  final int? year;
   @JsonKey(name: 'rating')
-  final double rating;
+  final double? rating;
   @JsonKey(name: 'runtime')
-  final int runtime;
+  final int? runtime;
   @JsonKey(name: 'genres')
-  final List<String> genres;
+  final List<String?>? genres;
   @JsonKey(name: 'summary')
-  final String summary;
+  final String? summary;
   @JsonKey(name: 'description_full')
-  final String descriptionFull;
+  final String? descriptionFull;
   @JsonKey(name: 'synopsis')
-  final String synopsis;
+  final String? synopsis;
   @JsonKey(name: 'yt_trailer_code')
-  final String ytTrailerCode;
+  final String? ytTrailerCode;
   @JsonKey(name: 'language')
-  final String language;
+  final String? language;
   @JsonKey(name: 'mpa_rating')
-  final String mpaRating;
+  final String? mpaRating;
   @JsonKey(name: 'background_image')
-  final String backgroundImage;
+  final String? backgroundImage;
   @JsonKey(name: 'background_image_original')
-  final String backgroundImageOriginal;
+  final String? backgroundImageOriginal;
   @JsonKey(name: 'small_cover_image')
-  final String smallCoverImage;
+  final String? smallCoverImage;
   @JsonKey(name: 'medium_cover_image')
-  final String mediumCoverImage;
+  final String? mediumCoverImage;
   @JsonKey(name: 'large_cover_image')
-  final String largeCoverImage;
+  final String? largeCoverImage;
   @JsonKey(name: 'state')
-  final String state;
+  final String? state;
   @JsonKey(name: 'torrents')
-  final List<Torrents> torrents;
+  final List<Torrents?>? torrents;
   @JsonKey(name: 'date_uploaded')
-  final String dateUploaded;
+  final String? dateUploaded;
   @JsonKey(name: 'date_uploaded_unix')
-  final int dateUploadedUnix;
+  final int? dateUploadedUnix;
 
   Movies({
-    required this.id,
-    required this.url,
-    required this.imdbCode,
-    required this.title,
-    required this.titleEnglish,
-    required this.titleLong,
-    required this.slug,
-    required this.year,
-    required this.rating,
-    required this.runtime,
-    required this.genres,
-    required this.summary,
-    required this.descriptionFull,
-    required this.synopsis,
-    required this.ytTrailerCode,
-    required this.language,
-    required this.mpaRating,
-    required this.backgroundImage,
-    required this.backgroundImageOriginal,
-    required this.smallCoverImage,
-    required this.mediumCoverImage,
-    required this.largeCoverImage,
-    required this.state,
-    required this.torrents,
-    required this.dateUploaded,
-    required this.dateUploadedUnix,
+    this.id,
+    this.url,
+    this.imdbCode,
+    this.title,
+    this.titleEnglish,
+    this.titleLong,
+    this.slug,
+    this.year,
+    this.rating,
+    this.runtime,
+    this.genres,
+    this.summary,
+    this.descriptionFull,
+    this.synopsis,
+    this.ytTrailerCode,
+    this.language,
+    this.mpaRating,
+    this.backgroundImage,
+    this.backgroundImageOriginal,
+    this.smallCoverImage,
+    this.mediumCoverImage,
+    this.largeCoverImage,
+    this.state,
+    this.torrents,
+    this.dateUploaded,
+    this.dateUploadedUnix,
   });
 
   factory Movies.fromJson(Map<String, dynamic> json) => _$MoviesFromJson(json);
@@ -159,49 +159,49 @@ class Movies {
 @JsonSerializable()
 class Torrents {
   @JsonKey(name: 'url')
-  final String url;
+  final String? url;
   @JsonKey(name: 'hash')
-  final String hash;
+  final String? hash;
   @JsonKey(name: 'quality')
-  final String quality;
+  final String? quality;
   @JsonKey(name: 'type')
-  final String type;
+  final String? type;
   @JsonKey(name: 'is_repack')
-  final String isRepack;
+  final String? isRepack;
   @JsonKey(name: 'video_codec')
-  final String videoCodec;
+  final String? videoCodec;
   @JsonKey(name: 'bit_depth')
-  final String bitDepth;
+  final String? bitDepth;
   @JsonKey(name: 'audio_channels')
-  final String audioChannels;
+  final String? audioChannels;
   @JsonKey(name: 'seeds')
-  final int seeds;
+  final int? seeds;
   @JsonKey(name: 'peers')
-  final int peers;
+  final int? peers;
   @JsonKey(name: 'size')
-  final String size;
+  final String? size;
   @JsonKey(name: 'size_bytes')
-  final int sizeBytes;
+  final int? sizeBytes;
   @JsonKey(name: 'date_uploaded')
-  final String dateUploaded;
+  final String? dateUploaded;
   @JsonKey(name: 'date_uploaded_unix')
-  final int dateUploadedUnix;
+  final int? dateUploadedUnix;
 
   Torrents({
-    required this.url,
-    required this.hash,
-    required this.quality,
-    required this.type,
-    required this.isRepack,
-    required this.videoCodec,
-    required this.bitDepth,
-    required this.audioChannels,
-    required this.seeds,
-    required this.peers,
-    required this.size,
-    required this.sizeBytes,
-    required this.dateUploaded,
-    required this.dateUploadedUnix,
+    this.url,
+    this.hash,
+    this.quality,
+    this.type,
+    this.isRepack,
+    this.videoCodec,
+    this.bitDepth,
+    this.audioChannels,
+    this.seeds,
+    this.peers,
+    this.size,
+    this.sizeBytes,
+    this.dateUploaded,
+    this.dateUploadedUnix,
   });
 
   factory Torrents.fromJson(Map<String, dynamic> json) => _$TorrentsFromJson(json);

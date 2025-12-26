@@ -14,6 +14,7 @@ class SearchCubit extends Cubit<SearchState> {
   Timer? _debounce;
   int currentPage = 1;
   String lastQuery = "";
+
   List<Movies> allMovies = [];
 
   SearchCubit(this._searchMoviesUseCase) : super(InitialState()) {
@@ -26,7 +27,6 @@ class SearchCubit extends Cubit<SearchState> {
       }
     });
   }
-
   Future<void> searchMovies({
     required String queryTerm,
     int? page,
@@ -36,6 +36,7 @@ class SearchCubit extends Cubit<SearchState> {
   }) async {
     if (queryTerm.isEmpty) {
       allMovies.clear();
+      lastQuery = "";
       emit(InitialState());
       return;
     }
@@ -45,13 +46,15 @@ class SearchCubit extends Cubit<SearchState> {
     } else {
       currentPage = 1;
       lastQuery = queryTerm;
-      allMovies.clear();
-      emit(LoadingState());
     }
 
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () async {
+      if (!isLoadMore) {
+        allMovies.clear();
+      }
+
       emit(LoadingState());
 
       final result = await _searchMoviesUseCase.call(
@@ -64,8 +67,14 @@ class SearchCubit extends Cubit<SearchState> {
       result.fold((failure) => emit(ErrorState(failure)), (
         searchResponseModel,
       ) {
-        final newMovies = searchResponseModel.data.movies;
+        final newMovies =
+            searchResponseModel.data?.movies
+                ?.whereType<Movies>()
+                .toList() ??
+            [];
+
         allMovies.addAll(newMovies);
+
         emit(SuccessSearchState(searchResponseModel));
       });
     });
