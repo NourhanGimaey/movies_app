@@ -8,10 +8,14 @@ part of 'movies_list_model.dart';
 
 MoviesListModel _$MoviesListModelFromJson(Map<String, dynamic> json) =>
     MoviesListModel(
-      status: json['status'] as String,
-      statusMessage: json['status_message'] as String,
-      data: Data.fromJson(json['data'] as Map<String, dynamic>),
-      meta: Meta.fromJson(json['@meta'] as Map<String, dynamic>),
+      status: json['status'] as String?,
+      statusMessage: json['status_message'] as String?,
+      data: json['data'] == null
+          ? null
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
+      meta: json['@meta'] == null
+          ? null
+          : Meta.fromJson(json['@meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MoviesListModelToJson(MoviesListModel instance) =>
@@ -23,10 +27,10 @@ Map<String, dynamic> _$MoviesListModelToJson(MoviesListModel instance) =>
     };
 
 Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
-      serverTime: (json['server_time'] as num).toInt(),
-      serverTimezone: json['server_timezone'] as String,
-      apiVersion: (json['api_version'] as num).toInt(),
-      executionTime: json['execution_time'] as String,
+      serverTime: (json['server_time'] as num?)?.toInt(),
+      serverTimezone: json['server_timezone'] as String?,
+      apiVersion: (json['api_version'] as num?)?.toInt(),
+      executionTime: json['execution_time'] as String?,
     );
 
 Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
@@ -37,11 +41,12 @@ Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
-      movieCount: (json['movie_count'] as num).toInt(),
-      limit: (json['limit'] as num).toInt(),
-      pageNumber: (json['page_number'] as num).toInt(),
-      movies: (json['movies'] as List<dynamic>)
-          .map((e) => Movies.fromJson(e as Map<String, dynamic>))
+      movieCount: (json['movie_count'] as num?)?.toInt(),
+      limit: (json['limit'] as num?)?.toInt(),
+      pageNumber: (json['page_number'] as num?)?.toInt(),
+      movies: (json['movies'] as List<dynamic>?)
+          ?.map((e) =>
+              e == null ? null : Movies.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -53,35 +58,36 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 Movies _$MoviesFromJson(Map<String, dynamic> json) => Movies(
-      id: (json['id'] as num).toInt(),
-      url: json['url'] as String,
-      imdbCode: json['imdb_code'] as String,
-      title: json['title'] as String,
-      titleEnglish: json['title_english'] as String,
-      titleLong: json['title_long'] as String,
-      slug: json['slug'] as String,
-      year: (json['year'] as num).toInt(),
-      rating: (json['rating'] as num).toDouble(),
-      runtime: (json['runtime'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
+      url: json['url'] as String?,
+      imdbCode: json['imdb_code'] as String?,
+      title: json['title'] as String?,
+      titleEnglish: json['title_english'] as String?,
+      titleLong: json['title_long'] as String?,
+      slug: json['slug'] as String?,
+      year: (json['year'] as num?)?.toInt(),
+      rating: (json['rating'] as num?)?.toDouble(),
+      runtime: (json['runtime'] as num?)?.toInt(),
       genres:
-          (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
-      summary: json['summary'] as String,
-      descriptionFull: json['description_full'] as String,
-      synopsis: json['synopsis'] as String,
-      ytTrailerCode: json['yt_trailer_code'] as String,
-      language: json['language'] as String,
-      mpaRating: json['mpa_rating'] as String,
-      backgroundImage: json['background_image'] as String,
-      backgroundImageOriginal: json['background_image_original'] as String,
-      smallCoverImage: json['small_cover_image'] as String,
-      mediumCoverImage: json['medium_cover_image'] as String,
-      largeCoverImage: json['large_cover_image'] as String,
-      state: json['state'] as String,
-      torrents: (json['torrents'] as List<dynamic>)
-          .map((e) => Torrents.fromJson(e as Map<String, dynamic>))
+          (json['genres'] as List<dynamic>?)?.map((e) => e as String?).toList(),
+      summary: json['summary'] as String?,
+      descriptionFull: json['description_full'] as String?,
+      synopsis: json['synopsis'] as String?,
+      ytTrailerCode: json['yt_trailer_code'] as String?,
+      language: json['language'] as String?,
+      mpaRating: json['mpa_rating'] as String?,
+      backgroundImage: json['background_image'] as String?,
+      backgroundImageOriginal: json['background_image_original'] as String?,
+      smallCoverImage: json['small_cover_image'] as String?,
+      mediumCoverImage: json['medium_cover_image'] as String?,
+      largeCoverImage: json['large_cover_image'] as String?,
+      state: json['state'] as String?,
+      torrents: (json['torrents'] as List<dynamic>?)
+          ?.map((e) =>
+              e == null ? null : Torrents.fromJson(e as Map<String, dynamic>))
           .toList(),
-      dateUploaded: json['date_uploaded'] as String,
-      dateUploadedUnix: (json['date_uploaded_unix'] as num).toInt(),
+      dateUploaded: json['date_uploaded'] as String?,
+      dateUploadedUnix: (json['date_uploaded_unix'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$MoviesToJson(Movies instance) => <String, dynamic>{
@@ -114,20 +120,20 @@ Map<String, dynamic> _$MoviesToJson(Movies instance) => <String, dynamic>{
     };
 
 Torrents _$TorrentsFromJson(Map<String, dynamic> json) => Torrents(
-      url: json['url'] as String,
-      hash: json['hash'] as String,
-      quality: json['quality'] as String,
-      type: json['type'] as String,
-      isRepack: json['is_repack'] as String,
-      videoCodec: json['video_codec'] as String,
-      bitDepth: json['bit_depth'] as String,
-      audioChannels: json['audio_channels'] as String,
-      seeds: (json['seeds'] as num).toInt(),
-      peers: (json['peers'] as num).toInt(),
-      size: json['size'] as String,
-      sizeBytes: (json['size_bytes'] as num).toInt(),
-      dateUploaded: json['date_uploaded'] as String,
-      dateUploadedUnix: (json['date_uploaded_unix'] as num).toInt(),
+      url: json['url'] as String?,
+      hash: json['hash'] as String?,
+      quality: json['quality'] as String?,
+      type: json['type'] as String?,
+      isRepack: json['is_repack'] as String?,
+      videoCodec: json['video_codec'] as String?,
+      bitDepth: json['bit_depth'] as String?,
+      audioChannels: json['audio_channels'] as String?,
+      seeds: (json['seeds'] as num?)?.toInt(),
+      peers: (json['peers'] as num?)?.toInt(),
+      size: json['size'] as String?,
+      sizeBytes: (json['size_bytes'] as num?)?.toInt(),
+      dateUploaded: json['date_uploaded'] as String?,
+      dateUploadedUnix: (json['date_uploaded_unix'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TorrentsToJson(Torrents instance) => <String, dynamic>{

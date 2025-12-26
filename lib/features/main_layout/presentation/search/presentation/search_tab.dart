@@ -44,7 +44,17 @@ class SearchTab extends StatelessWidget {
                       child: Center(child: Text(state.failure.message)),
                     );
                   } else if (state is SuccessSearchState) {
-                    return SearchMoviesGrid(data: state.moviesListModel.data);
+                    final moviesList = context.read<SearchCubit>().allMovies;
+
+                    if (moviesList.isEmpty) {
+                      return Expanded(
+                        child: Center(
+                          child: Image.asset(AppImages.emptyPageImage),
+                        ),
+                      );
+                    }
+
+                    return SearchMoviesGrid(movies: moviesList);
                   }
                   return Expanded(
                     child: Center(child: Image.asset(AppImages.emptyPageImage)),

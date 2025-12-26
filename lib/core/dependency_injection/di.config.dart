@@ -39,6 +39,8 @@ import '../../features/main_layout/domain/use_cases/movies_suggestions_use_case.
     as _i852;
 import '../../features/main_layout/domain/use_cases/search_movies_use_case.dart'
     as _i798;
+import '../../features/main_layout/presentation/explore/cubit/explore_cubit.dart'
+    as _i697;
 import '../../features/main_layout/presentation/home/cubit/home_cubit.dart'
     as _i250;
 import '../../features/main_layout/presentation/movie_details/cubit/movie_details_cubit.dart'
@@ -93,6 +95,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i852.MoviesSuggestionsUseCase(gh<_i243.MoviesRepository>()));
     gh.factory<_i250.HomeCubit>(
         () => _i250.HomeCubit(gh<_i1058.MoviesListUseCase>()));
+    gh.factory<_i697.ExploreCubit>(
+        () => _i697.ExploreCubit(gh<_i1058.MoviesListUseCase>()));
     gh.factory<_i87.MovieDetailsCubit>(() => _i87.MovieDetailsCubit(
           gh<_i118.MoviesDetailsUseCase>(),
           gh<_i852.MoviesSuggestionsUseCase>(),

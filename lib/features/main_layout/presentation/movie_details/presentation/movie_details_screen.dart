@@ -10,7 +10,7 @@ import 'package:movies/features/main_layout/presentation/movie_details/presentat
 import 'package:movies/features/main_layout/presentation/movie_details/presentation/widgets/genre_container.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/presentation/widgets/movie_info_stack.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/presentation/widgets/movie_screenshots_widget.dart';
-import 'package:movies/features/main_layout/presentation/widgets/movie_card.dart';
+import 'package:movies/features/main_layout/presentation/movie_details/presentation/widgets/similar_grid_view.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   const MovieDetailsScreen({super.key});
@@ -18,8 +18,7 @@ class MovieDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movieInfo = ModalRoute.of(context)!.settings.arguments as Movies;
-    context.read<MovieDetailsCubit>().getMovieData(movieId: movieInfo.id);
-    context.read<MovieDetailsCubit>().getMovieData(movieId: movieInfo.id);
+    context.read<MovieDetailsCubit>().getMovieData(movieId: movieInfo.id ?? 0);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -32,6 +31,8 @@ class MovieDetailsScreen extends StatelessWidget {
                 }
                 if (state is SuccessState) {
                   final movieDetails = state.movieDetailsModel!.data?.movie;
+                  final suggestedMovies =
+                      state.movieSuggestionModel?.data?.movies ?? [];
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -62,27 +63,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           "Similar",
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(0),
-                          itemCount:
-                              state.movieSuggestionModel!.data!.movies!.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 16.h,
-                                crossAxisSpacing: 16.w,
-                                childAspectRatio: 0.7,
-                              ),
-                          itemBuilder: (context, index) {
-                            final suggestion = state
-                                .movieSuggestionModel!
-                                .data!
-                                .movies![index];
-                            return MovieCard(movies: suggestion);
-                          },
-                        ),
+                        SimilarGridView(suggestedMovies: suggestedMovies),
                         Text(
                           "Summary",
                           style: Theme.of(context).textTheme.titleMedium,

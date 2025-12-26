@@ -13,7 +13,7 @@ class MovieInfoStack extends StatelessWidget {
     return Stack(
       children: [
         Image.network(
-          movieInfo.largeCoverImage,
+          movieInfo.largeCoverImage ?? '',
           width: double.infinity,
           height: 650.h,
           fit: BoxFit.cover,
@@ -58,7 +58,7 @@ class MovieInfoStack extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      movieInfo.title,
+                      movieInfo.title ?? '',
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),

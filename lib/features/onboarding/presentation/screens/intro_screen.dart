@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/app_routes.dart';
-import 'package:movies/features/onboarding/presentation/models/intro_screen_model.dart';
+import 'package:movies/features/onboarding/data/models/intro_screen_model.dart';
 import 'package:movies/features/onboarding/presentation/provider/intro_provider.dart';
 import 'package:movies/core/widgets/app_elevated_button.dart';
 import 'package:provider/provider.dart';
