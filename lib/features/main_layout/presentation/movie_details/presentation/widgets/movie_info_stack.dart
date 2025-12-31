@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/theme/app_colors.dart';
-import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
+import 'package:movies/core/utils/app_assets.dart';
+import 'package:movies/features/main_layout/data/models/movie_details_model/movie_details_model.dart';
 
 class MovieInfoStack extends StatelessWidget {
-  const MovieInfoStack({super.key});
+  final MovieDetailsModel? movieDetails;
+  const MovieInfoStack({super.key, required this.movieDetails});
 
   @override
   Widget build(BuildContext context) {
-    final movieInfo = ModalRoute.of(context)!.settings.arguments as Movies;
-
     return Stack(
       children: [
         Image.network(
-          movieInfo.largeCoverImage ?? '',
+          movieDetails?.data?.movie?.largeCoverImage ?? AppImages.imageNotFound,
           width: double.infinity,
           height: 650.h,
           fit: BoxFit.cover,
@@ -58,11 +58,11 @@ class MovieInfoStack extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      movieInfo.title ?? '',
+                      movieDetails?.data?.movie?.title ?? '',
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                     ),
-                    Text("${movieInfo.year}"),
+                    Text("${movieDetails?.data?.movie?.year}"),
                   ],
                 ),
               ],

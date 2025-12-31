@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/widgets/app_elevated_button.dart';
-import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/cubit/movie_details_cubit.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/cubit/movie_details_state.dart';
 import 'package:movies/features/main_layout/presentation/movie_details/presentation/widgets/cast_container.dart';
@@ -17,23 +16,23 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movieInfo = ModalRoute.of(context)!.settings.arguments as Movies;
-    context.read<MovieDetailsCubit>().getMovieData(movieId: movieInfo.id ?? 0);
+    final movieId = ModalRoute.of(context)!.settings.arguments as int;
+    context.read<MovieDetailsCubit>().getMovieData(movieId: movieId);
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            MovieInfoStack(),
-            BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-              builder: (context, state) {
-                if (state is ErrorState) {
-                  return Center(child: Text(state.failure.message));
-                }
-                if (state is SuccessState) {
-                  final movieDetails = state.movieDetailsModel!.data?.movie;
-                  final suggestedMovies =
-                      state.movieSuggestionModel?.data?.movies ?? [];
-                  return Padding(
+        child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+          builder: (context, state) {
+            if (state is ErrorState) {
+              return Center(child: Text(state.failure.message));
+            }
+            if (state is SuccessState) {
+              final movieDetails = state.movieDetailsModel!.data?.movie;
+              final suggestedMovies =
+                  state.movieSuggestionModel?.data?.movies ?? [];
+              return Column(
+                children: [
+                  MovieInfoStack(movieDetails: state.movieDetailsModel),
+                  Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,14 +100,14 @@ class MovieDetailsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  );
-                }
-                return SizedBox(
-                  child: const Center(child: CircularProgressIndicator()),
-                );
-              },
-            ),
-          ],
+                  ),
+                ],
+              );
+            }
+            return SizedBox(
+              child: const Center(child: CircularProgressIndicator()),
+            );
+          },
         ),
       ),
     );

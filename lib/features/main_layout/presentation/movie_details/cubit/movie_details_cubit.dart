@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movies/core/network/error_handler.dart';
 import 'package:movies/features/main_layout/data/models/movie_details_model/movie_details_model.dart';
 import 'package:movies/features/main_layout/data/models/movie_suggestion_model/movie_suggestion_model.dart';
 import 'package:movies/features/main_layout/domain/use_cases/movies_details_use_case.dart';
@@ -29,17 +30,22 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     final detailsResult = results[0];
     final suggestionsResult = results[1];
 
-    detailsResult.fold((failure) => emit(ErrorState(failure)), (movieDetails) {
-      suggestionsResult.fold((failure) => emit(ErrorState(failure)), (
-        suggestions,
-      ) {
-        emit(
-          SuccessState(
-            movieDetails as MovieDetailsModel,
-            suggestions as MovieSuggestionModel,
-          ),
-        );
-      });
-    });
+    final movieDetails = detailsResult.fold((l) => l, (r) => r);
+    final movieSuggestion = suggestionsResult.fold((l) => l, (r) => r);
+
+    if (movieDetails is Failure) {
+      return emit(ErrorState(movieDetails));
+    }
+
+    if (movieSuggestion is Failure) {
+      return emit(ErrorState(movieSuggestion));
+    }
+
+    emit(
+      SuccessState(
+        movieDetails as MovieDetailsModel,
+        movieSuggestion as MovieSuggestionModel,
+      ),
+    );
   }
 }

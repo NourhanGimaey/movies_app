@@ -12,7 +12,12 @@ class ErrorState extends ExploreState {
   ErrorState(this.failure);
 }
 
-class SuccessSearchState extends ExploreState {
+class SuccessExploreState extends ExploreState {
   final MoviesListModel moviesListModel;
-  SuccessSearchState(this.moviesListModel);
+  final List<Movies> allFilteredMovies;
+
+  SuccessExploreState({
+    required this.moviesListModel,
+    required this.allFilteredMovies,
+  });
 }

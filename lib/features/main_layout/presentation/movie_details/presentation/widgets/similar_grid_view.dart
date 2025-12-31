@@ -22,7 +22,11 @@ class SimilarGridView extends StatelessWidget {
         childAspectRatio: 0.7,
       ),
       itemBuilder: (context, index) {
-        return MovieCard(movies: suggestedMovies[index]);
+        return MovieCard(
+          movieId: suggestedMovies[index]?.id ?? 0,
+          mediumCoverImage: suggestedMovies[index]?.mediumCoverImage ?? '',
+          rating: suggestedMovies[index]?.rating ?? 0.0,
+        );
       },
     );
   }

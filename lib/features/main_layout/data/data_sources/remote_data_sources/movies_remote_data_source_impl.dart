@@ -57,6 +57,26 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
   }
 
   @override
+  Future<Either<Failure, MoviesListModel>> getMoviesByGenre({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  }) async {
+    try {
+      final response = await _moviesRetrofitApiClient.getMoviesByGenre(
+        genre,
+        page,
+        limit,
+        sortBy,
+      );
+      return Right(response);
+    } catch (exception) {
+      return Left(ErrorHandler.handle(exception).failure);
+    }
+  }
+
+  @override
   Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
     required int movieId,
     bool? withImages = true,

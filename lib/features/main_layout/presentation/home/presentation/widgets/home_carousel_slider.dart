@@ -24,17 +24,17 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
       alignment: Alignment.center,
       children: [
         AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 300),
           child: Container(
             key: ValueKey<String>(
-              widget.data!.movies![_currentIndex]!.largeCoverImage ?? '',
+              widget.data?.movies?[_currentIndex]?.largeCoverImage ?? '',
             ),
             height: 650.h,
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  widget.data!.movies![_currentIndex]!.largeCoverImage ?? '',
+                  widget.data?.movies?[_currentIndex]?.largeCoverImage ?? '',
                 ),
                 fit: BoxFit.cover,
               ),
@@ -61,10 +61,15 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
         Positioned(top: 50.h, child: Image.asset(AppImages.availableNow)),
 
         CarouselSlider.builder(
-          itemCount: widget.data!.movies!.length,
+          itemCount: widget.data?.movies?.length ?? 0,
           itemBuilder: (context, index, realIndex) => SizedBox(
             width: double.infinity,
-            child: MovieCard(movies: widget.data!.movies![index]),
+            child: MovieCard(
+              movieId: widget.data?.movies?[index]?.id ?? 0,
+              mediumCoverImage:
+                  widget.data?.movies?[index]?.mediumCoverImage ?? '',
+              rating: widget.data?.movies?[index]?.rating ?? 0.0,
+            ),
           ),
           options: CarouselOptions(
             enlargeCenterPage: true,

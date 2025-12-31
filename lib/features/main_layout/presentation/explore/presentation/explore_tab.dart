@@ -9,19 +9,18 @@ class ExploreTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExploreCubit, ExploreState>(
-      builder: (context, state) {
-        if (state is ErrorState) {
-          return Center(child: Text(state.failure.message));
-        } else if (state is SuccessSearchState) {
-          return SafeArea(
-            child: Scaffold(
-              body: ExploreTabController(state: state),
-            ),
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
+    return SafeArea(
+      child: BlocBuilder<ExploreCubit, ExploreState>(
+        builder: (context, state) {
+          if (state is SuccessExploreState) {
+            return ExploreTabController(state: state);
+          } else if (state is ErrorState) {
+            return Center(child: Text(state.failure.message));
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }

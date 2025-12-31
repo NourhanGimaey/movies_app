@@ -55,6 +55,25 @@ class MoviesRepositoryImpl implements MoviesRepository {
   }
 
   @override
+  Future<Either<Failure, MoviesListModel>> getMoviesByGenre({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  }) async {
+    if (await ConnectivityChecker.checkInternetConnection()) {
+      return _moviesRemoteDataSource.getMoviesByGenre(
+        genre: genre,
+        page: page,
+        limit: limit,
+        sortBy: sortBy,
+      );
+    } else {
+      return Left(_noInternetConnection);
+    }
+  }
+
+  @override
   Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
     required int movieId,
     bool? withImages,

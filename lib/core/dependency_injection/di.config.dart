@@ -31,6 +31,8 @@ import '../../features/main_layout/data/repositories/movies_repository_impl.dart
     as _i365;
 import '../../features/main_layout/domain/repositories/movies_repository.dart'
     as _i243;
+import '../../features/main_layout/domain/use_cases/movies_by_genre_use_case.dart'
+    as _i335;
 import '../../features/main_layout/domain/use_cases/movies_details_use_case.dart'
     as _i118;
 import '../../features/main_layout/domain/use_cases/movies_list_use_case.dart'
@@ -93,10 +95,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1058.MoviesListUseCase(gh<_i243.MoviesRepository>()));
     gh.factory<_i852.MoviesSuggestionsUseCase>(
         () => _i852.MoviesSuggestionsUseCase(gh<_i243.MoviesRepository>()));
+    gh.factory<_i335.MoviesByGenreUseCase>(
+        () => _i335.MoviesByGenreUseCase(gh<_i243.MoviesRepository>()));
+    gh.factory<_i697.ExploreCubit>(
+        () => _i697.ExploreCubit(gh<_i335.MoviesByGenreUseCase>()));
     gh.factory<_i250.HomeCubit>(
         () => _i250.HomeCubit(gh<_i1058.MoviesListUseCase>()));
-    gh.factory<_i697.ExploreCubit>(
-        () => _i697.ExploreCubit(gh<_i1058.MoviesListUseCase>()));
     gh.factory<_i87.MovieDetailsCubit>(() => _i87.MovieDetailsCubit(
           gh<_i118.MoviesDetailsUseCase>(),
           gh<_i852.MoviesSuggestionsUseCase>(),

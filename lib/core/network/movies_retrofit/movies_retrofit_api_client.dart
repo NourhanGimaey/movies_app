@@ -30,6 +30,15 @@ abstract class MoviesRetrofitApiClient {
     @Query("genre") String? genre,
   );
 
+  @GET(MoviesApiEndpoint.listMoviesApi)
+  Future<MoviesListModel> getMoviesByGenre(
+    @Query("genre") String? genre,
+    @Query("page") int? page,
+    @Query("limit") int? limit,
+    @Query("sort_by") String? sortBy,
+
+  );
+
   @GET(MoviesApiEndpoint.movieDetailsApi)
   Future<MovieDetailsModel> getMovieDetails(
     @Query("movie_id") int movieId,
