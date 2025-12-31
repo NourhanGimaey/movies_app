@@ -5,6 +5,7 @@ class AppImages {
   static const String emptyPageImage = "assets/images/empty_page_image.png";
   static const String availableNow = "assets/images/available_now.png";
   static const String watchNow = "assets/images/watch_now.png";
+  static const String imageNotFound = "assets/images/image_not_found.png";
 }
 
 class AppIcons {

@@ -67,14 +67,6 @@ class SearchCubit extends Cubit<SearchState> {
       result.fold((failure) => emit(ErrorState(failure)), (
         searchResponseModel,
       ) {
-        final newMovies =
-            searchResponseModel.data?.movies
-                ?.whereType<Movies>()
-                .toList() ??
-            [];
-
-        allMovies.addAll(newMovies);
-
         emit(SuccessSearchState(searchResponseModel));
       });
     });

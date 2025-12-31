@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:movies/core/utils/app_routes.dart';
 
 class MovieCard extends StatelessWidget {
-  final dynamic movies;
-  const MovieCard({super.key, required this.movies});
+  final int movieId;
+  final String mediumCoverImage;
+  final double rating;
+  const MovieCard({
+    super.key,
+    required this.mediumCoverImage,
+    required this.movieId,
+    required this.rating,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +19,14 @@ class MovieCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRoutes.movieDetailsScreen.routeName,
-          arguments: movies,
+          arguments: movieId,
         );
       },
       borderRadius: BorderRadius.circular(16),
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(movies.mediumCoverImage),
+            image: NetworkImage(mediumCoverImage),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(16),
@@ -38,7 +45,7 @@ class MovieCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("${movies.rating}"),
+                    Text("$rating"),
                     Icon(
                       Icons.star_rate_rounded,
                       color: Theme.of(context).colorScheme.secondary,

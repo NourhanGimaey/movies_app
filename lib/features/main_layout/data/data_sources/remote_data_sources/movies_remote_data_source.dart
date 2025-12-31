@@ -17,6 +17,13 @@ abstract interface class MoviesRemoteDataSource {
     int? limit,
     String? genre,
   });
+  Future<Either<Failure, MoviesListModel>> getMoviesByGenre({
+    String? genre,
+    int? page,
+    int? limit,
+    String? sortBy,
+  });
+
   Future<Either<Failure, MovieDetailsModel>> getMovieDetails({
     required int movieId,
     bool? withImages,

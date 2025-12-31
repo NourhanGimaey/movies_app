@@ -15,6 +15,7 @@ class SearchMoviesGrid extends StatelessWidget {
     return Expanded(
       child: GridView.builder(
         itemCount: movies.length,
+        controller: context.read<SearchCubit>().scrollController,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 16.h,
@@ -22,9 +23,12 @@ class SearchMoviesGrid extends StatelessWidget {
           childAspectRatio: 0.6,
         ),
         itemBuilder: (context, index) {
-          return MovieCard(movies: movies[index]);
+          return MovieCard(
+            movieId: movies[index].id ?? 0,
+            mediumCoverImage: movies[index].mediumCoverImage ?? '',
+            rating: movies[index].rating ?? 0.0,
+          );
         },
-        controller: context.read<SearchCubit>().scrollController,
       ),
     );
   }
