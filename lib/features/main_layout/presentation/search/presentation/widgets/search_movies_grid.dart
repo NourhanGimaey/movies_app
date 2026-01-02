@@ -6,7 +6,7 @@ import 'package:movies/features/main_layout/presentation/search/cubit/search_cub
 import 'package:provider/provider.dart';
 
 class SearchMoviesGrid extends StatelessWidget {
-  final List<Movies> movies;
+  final List<Movies?> movies;
 
   const SearchMoviesGrid({super.key, required this.movies});
 
@@ -24,9 +24,9 @@ class SearchMoviesGrid extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return MovieCard(
-            movieId: movies[index].id ?? 0,
-            mediumCoverImage: movies[index].mediumCoverImage ?? '',
-            rating: movies[index].rating ?? 0.0,
+            movieId: movies[index]?.id ?? 0,
+            mediumCoverImage: movies[index]?.mediumCoverImage ?? '',
+            rating: movies[index]?.rating ?? 0.0,
           );
         },
       ),

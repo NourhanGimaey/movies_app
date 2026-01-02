@@ -13,6 +13,6 @@ class ErrorState extends SearchState {
 }
 
 class SuccessSearchState extends SearchState {
-  final MoviesListModel moviesListModel;
-  SuccessSearchState(this.moviesListModel);
+  final List<Movies?>? allSearchedMovies;
+  SuccessSearchState({required this.allSearchedMovies});
 }

@@ -6,7 +6,7 @@ import 'package:movies/features/main_layout/presentation/widgets/movie_card.dart
 import 'package:movies/features/main_layout/data/models/movies_list_model/movies_list_model.dart';
 
 class ExploreMoviesGrid extends StatelessWidget {
-  final List<Movies> movies;
+  final List<Movies?> movies;
   const ExploreMoviesGrid({super.key, required this.movies});
 
   @override
@@ -24,9 +24,9 @@ class ExploreMoviesGrid extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return MovieCard(
-            movieId: movies[index].id ?? 0,
-            mediumCoverImage: movies[index].mediumCoverImage ?? '',
-            rating: movies[index].rating ?? 0.0,
+            movieId: movies[index]?.id ?? 0,
+            mediumCoverImage: movies[index]?.mediumCoverImage ?? '',
+            rating: movies[index]?.rating ?? 0.0,
           );
         },
       ),

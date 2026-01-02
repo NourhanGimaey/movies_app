@@ -13,11 +13,12 @@ class ErrorState extends ExploreState {
 }
 
 class SuccessExploreState extends ExploreState {
-  final MoviesListModel moviesListModel;
-  final List<Movies> allFilteredMovies;
+  final List<Movies?>? allFilteredMovies;
 
-  SuccessExploreState({
-    required this.moviesListModel,
-    required this.allFilteredMovies,
-  });
+  SuccessExploreState({required this.allFilteredMovies});
+}
+
+class ChangeGenre extends ExploreState {
+  final int index;
+  ChangeGenre({required this.index});
 }

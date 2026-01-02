@@ -9,13 +9,13 @@ import 'package:movies/features/main_layout/presentation/search/cubit/search_sta
 @injectable
 class SearchCubit extends Cubit<SearchState> {
   final SearchMoviesUseCase _searchMoviesUseCase;
+
   final ScrollController scrollController = ScrollController();
+  List<Movies?> allMovies = [];
+  String lastQuery = "";
+  int currentPage = 1;
 
   Timer? _debounce;
-  int currentPage = 1;
-  String lastQuery = "";
-
-  List<Movies> allMovies = [];
 
   SearchCubit(this._searchMoviesUseCase) : super(InitialState()) {
     scrollController.addListener(() {
@@ -39,9 +39,7 @@ class SearchCubit extends Cubit<SearchState> {
       lastQuery = "";
       emit(InitialState());
       return;
-    }
-
-    if (isLoadMore) {
+    } else if (isLoadMore) {
       currentPage++;
     } else {
       currentPage = 1;
@@ -55,19 +53,26 @@ class SearchCubit extends Cubit<SearchState> {
         allMovies.clear();
       }
 
-      emit(LoadingState());
-
       final result = await _searchMoviesUseCase.call(
         queryTerm: queryTerm,
         page: currentPage,
-        limit: limit,
+        limit: 20,
         genre: genre,
       );
 
       result.fold((failure) => emit(ErrorState(failure)), (
         searchResponseModel,
       ) {
-        emit(SuccessSearchState(searchResponseModel));
+        final movies = searchResponseModel.data?.movies;
+        if (isLoadMore) {
+          allMovies.addAll(movies ?? []);
+        } else {
+          allMovies = movies ?? [];
+        }
+
+        currentPage++;
+
+        emit(SuccessSearchState(allSearchedMovies: allMovies));
       });
     });
   }
