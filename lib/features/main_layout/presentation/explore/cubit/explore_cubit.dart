@@ -41,7 +41,7 @@ class ExploreCubit extends Cubit<ExploreState> {
   ];
 
   String selectedGenre = '';
-  List<Movies> filteredMoviesList = [];
+  List<Movies?> allMovies = [];
   int currentPage = 1;
   bool isFetchingMore = false;
 
@@ -62,13 +62,14 @@ class ExploreCubit extends Cubit<ExploreState> {
   }
   void onGenreChanged(int index) {
     selectedGenre = allGenres[index];
+    emit(ChangeGenre(index: index));
     _resetPagination();
     getMoviesList();
   }
 
   void _resetPagination() {
     currentPage = 1;
-    filteredMoviesList.clear();
+    allMovies.clear();
   }
 
   Future<void> getMoviesList({bool isLoadMore = false}) async {
@@ -92,24 +93,17 @@ class ExploreCubit extends Cubit<ExploreState> {
         emit(ErrorState(failure));
       },
       (moviesListModel) {
-        final rawMovies = moviesListModel.data?.movies;
-        final List<Movies> newMovies =
-            rawMovies?.whereType<Movies>().toList() ?? [];
+        final movies = moviesListModel.data?.movies;
         if (isLoadMore) {
-          filteredMoviesList.addAll(newMovies);
+          allMovies.addAll(movies ?? []);
         } else {
-          filteredMoviesList = newMovies;
+          allMovies = movies ?? [];
         }
 
         currentPage++;
         isFetchingMore = false;
 
-        emit(
-          SuccessExploreState(
-            moviesListModel: moviesListModel,
-            allFilteredMovies: List.from(filteredMoviesList),
-          ),
-        );
+        emit(SuccessExploreState(allFilteredMovies: allMovies));
       },
     );
   }

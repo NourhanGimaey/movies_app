@@ -1,14 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies/features/main_layout/domain/use_cases/movies_list_use_case.dart';
+import 'package:movies/features/main_layout/presentation/explore/cubit/explore_cubit.dart';
 import 'package:movies/features/main_layout/presentation/home/cubit/home_state.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final MoviesListUseCase _moviesListUseCase;
+  final ExploreCubit _exploreCubit;
 
-  HomeCubit(this._moviesListUseCase) : super(InitialState()) {
+  String get currentGenre => _exploreCubit.selectedGenre;
+
+  HomeCubit(this._moviesListUseCase, this._exploreCubit)
+    : super(InitialState()) {
     getMoviesList();
+    changeGenre();
   }
 
   Future<void> getMoviesList({
@@ -26,5 +34,13 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold((failure) => emit(ErrorState(failure)), (moviesListModel) {
       emit(SuccessState(moviesListModel));
     });
+  }
+
+  void changeGenre() {
+    final allGenres = _exploreCubit.allGenres;
+    final randomIndex = Random().nextInt(allGenres.length);
+    final selectedGenre = allGenres[randomIndex];
+    _exploreCubit.onGenreChanged(randomIndex);
+    getMoviesList(genre: selectedGenre);
   }
 }

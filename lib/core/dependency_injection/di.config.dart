@@ -99,8 +99,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i335.MoviesByGenreUseCase(gh<_i243.MoviesRepository>()));
     gh.factory<_i697.ExploreCubit>(
         () => _i697.ExploreCubit(gh<_i335.MoviesByGenreUseCase>()));
-    gh.factory<_i250.HomeCubit>(
-        () => _i250.HomeCubit(gh<_i1058.MoviesListUseCase>()));
+    gh.factory<_i250.HomeCubit>(() => _i250.HomeCubit(
+          gh<_i1058.MoviesListUseCase>(),
+          gh<_i697.ExploreCubit>(),
+        ));
     gh.factory<_i87.MovieDetailsCubit>(() => _i87.MovieDetailsCubit(
           gh<_i118.MoviesDetailsUseCase>(),
           gh<_i852.MoviesSuggestionsUseCase>(),

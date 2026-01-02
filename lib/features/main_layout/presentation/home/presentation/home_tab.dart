@@ -11,6 +11,9 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeCubit>().changeGenre();
+    });
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
@@ -21,7 +24,8 @@ class HomeTab extends StatelessWidget {
           if (state is SuccessState) {
             final movieData = state.moviesListModel.data;
             final movieDetails = state.moviesListModel.data!.movies;
-
+            final cubit = context
+                .read<HomeCubit>();
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -31,7 +35,7 @@ class HomeTab extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Genre"),
+                        Text(cubit.currentGenre),
                         TextButton(
                           onPressed: () {},
                           child: Text(
