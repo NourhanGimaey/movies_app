@@ -3,16 +3,18 @@ import 'package:movies/features/main_layout/data/models/movies_list_model/movies
 
 sealed class HomeState {}
 
-class InitialState extends HomeState {}
+class HomeInitialState extends HomeState {}
 
-class LoadingState extends HomeState {}
+class HomeLoadingState extends HomeState {}
 
-class ErrorState extends HomeState {
+class HomeErrorState extends HomeState {
   final Failure failure;
-  ErrorState(this.failure);
+  HomeErrorState(this.failure);
 }
 
-class SuccessState extends HomeState {
+class HomeSuccessState extends HomeState {
   final MoviesListModel moviesListModel;
-  SuccessState(this.moviesListModel);
+  final String genreName;
+
+  HomeSuccessState({required this.moviesListModel, required this.genreName});
 }

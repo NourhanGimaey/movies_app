@@ -17,9 +17,9 @@ class ExploreTab extends StatelessWidget {
           Expanded(
             child: BlocBuilder<ExploreCubit, ExploreState>(
               builder: (context, state) {
-                if (state is ErrorState) {
+                if (state is ExploreErrorState) {
                   return Center(child: Text(state.failure.message));
-                } else if (state is SuccessExploreState) {
+                } else if (state is ExploreSuccessState) {
                   return ExploreMoviesGrid(
                     movies: state.allFilteredMovies ?? [],
                   );

@@ -47,7 +47,7 @@ class ExploreCubit extends Cubit<ExploreState> {
 
   final ScrollController scrollController = ScrollController();
 
-  ExploreCubit(this._moviesByGenreUseCase) : super(InitialState()) {
+  ExploreCubit(this._moviesByGenreUseCase) : super(ExploreInitialState()) {
     selectedGenre = allGenres[0];
     getMoviesList();
 
@@ -77,7 +77,7 @@ class ExploreCubit extends Cubit<ExploreState> {
       if (isFetchingMore) return;
       isFetchingMore = true;
     } else {
-      emit(LoadingState());
+      emit(ExploreLoadingState());
     }
 
     final result = await _moviesByGenreUseCase.call(
@@ -90,7 +90,7 @@ class ExploreCubit extends Cubit<ExploreState> {
     result.fold(
       (failure) {
         isFetchingMore = false;
-        emit(ErrorState(failure));
+        emit(ExploreErrorState(failure));
       },
       (moviesListModel) {
         final movies = moviesListModel.data?.movies;
@@ -103,7 +103,7 @@ class ExploreCubit extends Cubit<ExploreState> {
         currentPage++;
         isFetchingMore = false;
 
-        emit(SuccessExploreState(allFilteredMovies: allMovies));
+        emit(ExploreSuccessState(allFilteredMovies: allMovies));
       },
     );
   }

@@ -3,16 +3,16 @@ import 'package:movies/features/main_layout/data/models/movies_list_model/movies
 
 sealed class SearchState {}
 
-class InitialState extends SearchState {}
+class SearchInitialState extends SearchState {}
 
-class LoadingState extends SearchState {}
+class SearchLoadingState extends SearchState {}
 
-class ErrorState extends SearchState {
+class SearchErrorState extends SearchState {
   final Failure failure;
-  ErrorState(this.failure);
+  SearchErrorState(this.failure);
 }
 
-class SuccessSearchState extends SearchState {
+class SearchSuccessState extends SearchState {
   final List<Movies?>? allSearchedMovies;
-  SuccessSearchState({required this.allSearchedMovies});
+  SearchSuccessState({required this.allSearchedMovies});
 }

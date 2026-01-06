@@ -3,19 +3,19 @@ import 'package:movies/features/main_layout/data/models/movies_list_model/movies
 
 sealed class ExploreState {}
 
-class InitialState extends ExploreState {}
+class ExploreInitialState extends ExploreState {}
 
-class LoadingState extends ExploreState {}
+class ExploreLoadingState extends ExploreState {}
 
-class ErrorState extends ExploreState {
+class ExploreErrorState extends ExploreState {
   final Failure failure;
-  ErrorState(this.failure);
+  ExploreErrorState(this.failure);
 }
 
-class SuccessExploreState extends ExploreState {
+class ExploreSuccessState extends ExploreState {
   final List<Movies?>? allFilteredMovies;
 
-  SuccessExploreState({required this.allFilteredMovies});
+  ExploreSuccessState({required this.allFilteredMovies});
 }
 
 class ChangeGenre extends ExploreState {

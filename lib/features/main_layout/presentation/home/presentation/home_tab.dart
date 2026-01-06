@@ -11,21 +11,17 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<HomeCubit>().changeGenre();
-    });
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          if (state is ErrorState) {
+          if (state is HomeErrorState) {
             return Center(child: Text(state.failure.message));
           }
 
-          if (state is SuccessState) {
+          if (state is HomeSuccessState) {
             final movieData = state.moviesListModel.data;
-            final movieDetails = state.moviesListModel.data!.movies;
-            final cubit = context
-                .read<HomeCubit>();
+            final movies = state.moviesListModel.data!.movies;
+
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -35,7 +31,7 @@ class HomeTab extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(cubit.currentGenre),
+                        Text(state.genreName),
                         TextButton(
                           onPressed: () {},
                           child: Text(
@@ -52,15 +48,15 @@ class HomeTab extends StatelessWidget {
                     height: 250.h,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: movieDetails?.length ?? 0,
+                      itemCount: movies?.length ?? 0,
                       separatorBuilder: (context, index) => SizedBox(width: 16),
                       itemBuilder: (context, index) => SizedBox(
                         width: 150.w,
                         child: MovieCard(
-                          movieId: movieDetails?[index]?.id ?? 0,
+                          movieId: movies?[index]?.id ?? 0,
                           mediumCoverImage:
-                              movieDetails?[index]?.mediumCoverImage ?? '',
-                          rating: movieDetails?[index]?.rating ?? 0.0,
+                              movies?[index]?.mediumCoverImage ?? '',
+                          rating: movies?[index]?.rating ?? 0.0,
                         ),
                       ),
                     ),
