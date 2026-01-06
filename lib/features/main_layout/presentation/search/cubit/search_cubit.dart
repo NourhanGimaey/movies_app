@@ -17,7 +17,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Timer? _debounce;
 
-  SearchCubit(this._searchMoviesUseCase) : super(InitialState()) {
+  SearchCubit(this._searchMoviesUseCase) : super(SearchInitialState()) {
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         bool isTop = scrollController.position.pixels == 0;
@@ -37,7 +37,7 @@ class SearchCubit extends Cubit<SearchState> {
     if (queryTerm.isEmpty) {
       allMovies.clear();
       lastQuery = "";
-      emit(InitialState());
+      emit(SearchInitialState());
       return;
     } else if (isLoadMore) {
       currentPage++;
@@ -60,7 +60,7 @@ class SearchCubit extends Cubit<SearchState> {
         genre: genre,
       );
 
-      result.fold((failure) => emit(ErrorState(failure)), (
+      result.fold((failure) => emit(SearchErrorState(failure)), (
         searchResponseModel,
       ) {
         final movies = searchResponseModel.data?.movies;
@@ -72,7 +72,7 @@ class SearchCubit extends Cubit<SearchState> {
 
         currentPage++;
 
-        emit(SuccessSearchState(allSearchedMovies: allMovies));
+        emit(SearchSuccessState(allSearchedMovies: allMovies));
       });
     });
   }

@@ -35,15 +35,15 @@ class SearchTab extends StatelessWidget {
               ),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
-                  if (state is LoadingState) {
+                  if (state is SearchLoadingState) {
                     return const Expanded(
                       child: Center(child: CircularProgressIndicator()),
                     );
-                  } else if (state is ErrorState) {
+                  } else if (state is SearchErrorState) {
                     return Expanded(
                       child: Center(child: Text(state.failure.message)),
                     );
-                  } else if (state is SuccessSearchState) {
+                  } else if (state is SearchSuccessState) {
                     final moviesList = context.read<SearchCubit>().allMovies;
 
                     if (moviesList.isEmpty) {
