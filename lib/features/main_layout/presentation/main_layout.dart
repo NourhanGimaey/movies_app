@@ -22,8 +22,11 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
-  List<Widget> tabs = [
-    BlocProvider(create: (context) => getIt<HomeCubit>(), child: HomeTab()),
+  late List<Widget> tabs = [
+    BlocProvider(
+      create: (context) => getIt<HomeCubit>(),
+      child: HomeTab(onSeeMorePressed: (genreName) => navigateToExploreTab(genreName)),
+    ),
     BlocProvider(create: (context) => getIt<SearchCubit>(), child: SearchTab()),
     BlocProvider(
       create: (context) => getIt<ExploreCubit>(),
@@ -32,9 +35,21 @@ class _MainLayoutState extends State<MainLayout> {
     const ProfileTab(),
   ];
 
-  changeSelectedIndex(int selectedIndex) {
+  void changeSelectedIndex(int selectedIndex) {
     setState(() {
       currentIndex = selectedIndex;
+    });
+  }
+
+  void navigateToExploreTab(String genreName) {
+    final ExploreCubit exploreCubit = getIt<ExploreCubit>();
+    int selectedGenreIndex = exploreCubit.allGenres.indexOf(genreName);
+    if (selectedGenreIndex != -1) {
+      exploreCubit.onGenreChanged(selectedGenreIndex);
+    }
+
+    setState(() {
+      currentIndex = 2;
     });
   }
 
@@ -79,7 +94,6 @@ class CustomBottomNavBarItem extends BottomNavigationBarItem {
     : super(
         label: title,
         icon: SvgPicture.asset(iconPath),
-        // ignore: deprecated_member_use
         activeIcon: SvgPicture.asset(iconPath, color: AppColors.yellow),
       );
 }

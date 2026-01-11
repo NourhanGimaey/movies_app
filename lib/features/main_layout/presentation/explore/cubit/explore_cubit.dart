@@ -44,6 +44,7 @@ class ExploreCubit extends Cubit<ExploreState> {
   List<Movies?> allMovies = [];
   int currentPage = 1;
   bool isFetchingMore = false;
+  int selectedGenreIndex = 0;
 
   final ScrollController scrollController = ScrollController();
 
@@ -61,8 +62,9 @@ class ExploreCubit extends Cubit<ExploreState> {
     });
   }
   void onGenreChanged(int index) {
+    selectedGenreIndex = index;
     selectedGenre = allGenres[index];
-    emit(ChangeGenre(index: index));
+    emit(ChangeGenre(index: selectedGenreIndex));
     _resetPagination();
     getMoviesList();
   }

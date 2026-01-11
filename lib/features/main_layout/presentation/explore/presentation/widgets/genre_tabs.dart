@@ -12,6 +12,8 @@ class GenreTabs extends StatelessWidget {
     int genreIndex = 0;
     return DefaultTabController(
       length: cubit.allGenres.length,
+      // initialIndex: cubit.selectedGenreIndex,
+      key: ValueKey(cubit.selectedGenreIndex),
       child: Column(
         children: [
           BlocBuilder<ExploreCubit, ExploreState>(

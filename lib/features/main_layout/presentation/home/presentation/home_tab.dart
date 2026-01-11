@@ -7,8 +7,9 @@ import 'package:movies/features/main_layout/presentation/home/cubit/home_state.d
 import 'package:movies/features/main_layout/presentation/home/presentation/widgets/home_carousel_slider.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
-
+  final void Function(String) onSeeMorePressed;
+  
+const HomeTab({super.key, required this.onSeeMorePressed});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +34,7 @@ class HomeTab extends StatelessWidget {
                       children: [
                         Text(state.genreName),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => onSeeMorePressed(state.genreName),
                           child: Text(
                             "See More →",
                             style: TextStyle(
