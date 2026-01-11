@@ -19,17 +19,17 @@ class MovieDetailsScreen extends StatelessWidget {
     final movieId = ModalRoute.of(context)!.settings.arguments as int;
     context.read<MovieDetailsCubit>().getMovieData(movieId: movieId);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-          builder: (context, state) {
-            if (state is ErrorState) {
-              return Center(child: Text(state.failure.message));
-            }
-            if (state is SuccessState) {
-              final movieDetails = state.movieDetailsModel!.data?.movie;
-              final suggestedMovies =
-                  state.movieSuggestionModel?.data?.movies ?? [];
-              return Column(
+      body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+        builder: (context, state) {
+          if (state is ErrorState) {
+            return Center(child: Text(state.failure.message));
+          }
+          if (state is SuccessState) {
+            final movieDetails = state.movieDetailsModel!.data?.movie;
+            final suggestedMovies =
+                state.movieSuggestionModel?.data?.movies ?? [];
+            return SingleChildScrollView(
+              child: Column(
                 children: [
                   MovieInfoStack(movieDetails: state.movieDetailsModel),
                   Padding(
@@ -102,13 +102,11 @@ class MovieDetailsScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              );
-            }
-            return SizedBox(
-              child: const Center(child: CircularProgressIndicator()),
+              ),
             );
-          },
-        ),
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

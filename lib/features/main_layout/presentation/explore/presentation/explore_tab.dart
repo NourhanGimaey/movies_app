@@ -24,7 +24,7 @@ class ExploreTab extends StatelessWidget {
                     movies: state.allFilteredMovies ?? [],
                   );
                 }
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               },
             ),
           ),
